@@ -4,7 +4,7 @@
 
 const GITHUB_USERNAME = 'h0tp-ftw';
 const FEATURED_PROJECTS_COUNT = 6;
-const PORTFOLIO_CSV_URL = 'https://raw.githubusercontent.com/h0tp-ftw/h0tp-ftw/main/portfolio-returns.csv';
+const PORTFOLIO_CSV_URL = 'assets/portfolio-returns.csv';
 
 const ROTATING_WORDS = [
     'underappreciated',
