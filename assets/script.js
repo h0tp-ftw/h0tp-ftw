@@ -59,8 +59,8 @@ function shuffleArray(array) {
 // ============================================
 
 const observerOptions = {
-    threshold: 0.15,
-    rootMargin: '0px 0px -50px 0px'
+    threshold: 0.05,
+    rootMargin: '0px 0px -20px 0px'
 };
 
 const observer = new IntersectionObserver((entries) => {
@@ -72,42 +72,15 @@ const observer = new IntersectionObserver((entries) => {
 }, observerOptions);
 
 function initScrollAnimations() {
+    // Scroll animations disabled for better performance
     document.querySelectorAll('.fade-in-up, .fade-in-left, .fade-in-right, .project-card, .person-card').forEach(el => {
-        observer.observe(el);
+        el.classList.add('visible');
     });
 }
 
 // Enhanced parallax with multiple layers
-function handleParallax() {
-    const scrolled = window.pageYOffset;
-    const orbs = document.querySelectorAll('.gradient-orb');
-    const particles = document.querySelectorAll('.particle');
-
-    orbs.forEach((orb, index) => {
-        const speed = 0.3 + (index * 0.15);
-        const yPos = -(scrolled * speed);
-        const rotation = scrolled * 0.05;
-        orb.style.transform = `translate(0, ${yPos}px) rotate(${rotation}deg)`;
-    });
-
-    // Parallax on particles too
-    particles.forEach((particle, index) => {
-        const speed = 0.1 + (index * 0.02);
-        const yPos = -(scrolled * speed);
-        particle.style.transform = `translateY(${yPos}px)`;
-    });
-}
-
-let ticking = false;
-window.addEventListener('scroll', () => {
-    if (!ticking) {
-        window.requestAnimationFrame(() => {
-            handleParallax();
-            ticking = false;
-        });
-        ticking = true;
-    }
-});
+// PARALLAX DISABLED FOR PERFORMANCE
+// Parallax effects removed to eliminate lag
 
 // ============================================
 // THEME TOGGLE
