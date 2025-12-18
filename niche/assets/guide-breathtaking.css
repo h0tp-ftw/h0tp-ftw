@@ -1,0 +1,694 @@
+/* ============================================
+   BREATHTAKING GUIDE DESIGN - CATPPUCCIN
+   ============================================ */
+
+/* Catppuccin Frappé (Dark) */
+:root[data-theme="frappe"] {
+    --ctp-rosewater: #f2d5cf;
+    --ctp-flamingo: #eebebe;
+    --ctp-pink: #f4b8e4;
+    --ctp-mauve: #ca9ee6;
+    --ctp-red: #e78284;
+    --ctp-maroon: #ea999c;
+    --ctp-peach: #ef9f76;
+    --ctp-yellow: #e5c890;
+    --ctp-green: #a6d189;
+    --ctp-teal: #81c8be;
+    --ctp-sky: #99d1db;
+    --ctp-sapphire: #85c1dc;
+    --ctp-blue: #8caaee;
+    --ctp-lavender: #babbf1;
+    --ctp-text: #c6d0f5;
+    --ctp-subtext1: #b5bfe2;
+    --ctp-subtext0: #a5adce;
+    --ctp-overlay2: #949cbb;
+    --ctp-overlay1: #838ba7;
+    --ctp-overlay0: #737994;
+    --ctp-surface2: #626880;
+    --ctp-surface1: #51576d;
+    --ctp-surface0: #414559;
+    --ctp-base: #303446;
+    --ctp-mantle: #292c3c;
+    --ctp-crust: #232634;
+}
+
+/* Catppuccin Latte (Light) */
+:root[data-theme="latte"] {
+    --ctp-rosewater: #dc8a78;
+    --ctp-flamingo: #dd7878;
+    --ctp-pink: #ea76cb;
+    --ctp-mauve: #8839ef;
+    --ctp-red: #d20f39;
+    --ctp-maroon: #e64553;
+    --ctp-peach: #fe640b;
+    --ctp-yellow: #df8e1d;
+    --ctp-green: #40a02b;
+    --ctp-teal: #179299;
+    --ctp-sky: #04a5e5;
+    --ctp-sapphire: #209fb5;
+    --ctp-blue: #1e66f5;
+    --ctp-lavender: #7287fd;
+    --ctp-text: #4c4f69;
+    --ctp-subtext1: #5c5f77;
+    --ctp-subtext0: #6c6f85;
+    --ctp-overlay2: #7c7f93;
+    --ctp-overlay1: #8c8fa1;
+    --ctp-overlay0: #9ca0b0;
+    --ctp-surface2: #acb0be;
+    --ctp-surface1: #bcc0cc;
+    --ctp-surface0: #ccd0da;
+    --ctp-base: #eff1f5;
+    --ctp-mantle: #e6e9ef;
+    --ctp-crust: #dce0e8;
+}
+
+/* ============================================
+   GLOBAL STYLES
+   ============================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--ctp-base);
+    color: var(--ctp-text);
+    line-height: 1.7;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* ============================================
+   STUNNING ANIMATED BACKGROUND
+   ============================================ */
+
+.guide-animated-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+/* Floating gradient orbs */
+.gradient-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.25;
+    animation: float-orb 35s ease-in-out infinite;
+}
+
+.gradient-orb.orb-1 {
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, var(--ctp-mauve) 0%, var(--ctp-pink) 50%, transparent 70%);
+    top: 5%;
+    left: 5%;
+    animation-delay: 0s;
+}
+
+.gradient-orb.orb-2 {
+    width: 550px;
+    height: 550px;
+    background: radial-gradient(circle, var(--ctp-blue) 0%, var(--ctp-sapphire) 50%, transparent 70%);
+    top: 50%;
+    right: 5%;
+    animation-delay: 7s;
+}
+
+.gradient-orb.orb-3 {
+    width: 650px;
+    height: 650px;
+    background: radial-gradient(circle, var(--ctp-pink) 0%, var(--ctp-mauve) 50%, transparent 70%);
+    bottom: 10%;
+    left: 40%;
+    animation-delay: 14s;
+}
+
+@keyframes float-orb {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1) rotate(0deg);
+    }
+
+    25% {
+        transform: translate(50px, -50px) scale(1.15) rotate(90deg);
+    }
+
+    50% {
+        transform: translate(-40px, 40px) scale(0.9) rotate(180deg);
+    }
+
+    75% {
+        transform: translate(45px, 25px) scale(1.1) rotate(270deg);
+    }
+}
+
+/* Mesh gradient overlay */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        radial-gradient(circle at 20% 50%, rgba(202, 158, 230, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(140, 170, 238, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 80%, rgba(244, 184, 228, 0.1) 0%, transparent 50%);
+    animation: gradient-shift 30s ease infinite;
+    pointer-events: none;
+    z-index: -1;
+}
+
+@keyframes gradient-shift {
+
+    0%,
+    100% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+
+    33% {
+        transform: translate(10px, -10px) rotate(1deg);
+    }
+
+    66% {
+        transform: translate(-10px, 10px) rotate(-1deg);
+    }
+}
+
+/* ============================================
+   THEME TOGGLE
+   ============================================ */
+
+.guide-theme-toggle {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    width: 80px;
+    height: 40px;
+    background: var(--ctp-surface0);
+    border: 2px solid var(--ctp-surface1);
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    z-index: 1000;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    padding: 4px;
+}
+
+.guide-theme-toggle:hover {
+    border-color: var(--ctp-mauve);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
+    transform: scale(1.05);
+}
+
+.guide-theme-slider {
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, var(--ctp-mauve), var(--ctp-pink));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateX(0);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.guide-theme-slider.light-mode {
+    transform: translateX(40px);
+}
+
+.guide-slider-icon {
+    position: absolute;
+    color: var(--ctp-base);
+    width: 18px;
+    height: 18px;
+    transition: all 0.3s ease;
+}
+
+.guide-theme-slider:not(.light-mode) .moon-icon {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.guide-theme-slider:not(.light-mode) .sun-icon {
+    opacity: 0;
+    transform: scale(0);
+}
+
+.guide-theme-slider.light-mode .moon-icon {
+    opacity: 0;
+    transform: scale(0);
+}
+
+.guide-theme-slider.light-mode .sun-icon {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* ============================================
+   BACK BUTTON
+   ============================================ */
+
+.niche-back-nav {
+    position: fixed;
+    top: 2rem;
+    left: 2rem;
+    z-index: 1000;
+}
+
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.875rem 1.75rem;
+    background: rgba(var(--ctp-surface0-rgb, 65, 69, 89), 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    color: var(--ctp-text);
+    text-decoration: none;
+    border: 2px solid var(--ctp-surface1);
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.back-btn:hover {
+    background: var(--ctp-mauve);
+    color: var(--ctp-base);
+    transform: translateX(-4px) scale(1.02);
+    box-shadow: 0 6px 24px rgba(202, 158, 230, 0.3);
+}
+
+.back-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* ============================================
+   CONTAINER
+   ============================================ */
+
+.niche-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 8rem 2rem 4rem;
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+
+.niche-header {
+    text-align: center;
+    margin-bottom: 5rem;
+    animation: fadeInUp 0.8s ease;
+}
+
+.niche-header h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, var(--ctp-text), var(--ctp-mauve), var(--ctp-pink));
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradient-text 8s ease infinite;
+    letter-spacing: -0.02em;
+}
+
+.niche-subtitle {
+    font-size: 1.35rem;
+    color: var(--ctp-subtext1);
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.8;
+}
+
+@keyframes gradient-text {
+
+    0%,
+    100% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================
+   GUIDE CONTENT
+   ============================================ */
+
+.guide-content {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.guide-content section {
+    background: rgba(var(--ctp-surface0-rgb, 65, 69, 89), 0.6);
+    backdrop-filter: blur(30px) saturate(180%);
+    -webkit-backdrop-filter: blur(30px) saturate(180%);
+    border: 2px solid var(--ctp-surface1);
+    border-radius: 24px;
+    padding: 3rem;
+    margin-bottom: 2.5rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.guide-content section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--ctp-mauve), var(--ctp-pink), var(--ctp-blue));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+}
+
+.guide-content section:hover::before {
+    transform: scaleX(1);
+}
+
+.guide-content section:hover {
+    border-color: var(--ctp-mauve);
+    transform: translateY(-6px);
+    box-shadow:
+        0 16px 48px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08),
+        0 0 0 1px rgba(202, 158, 230, 0.2);
+}
+
+.guide-content h2 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: var(--ctp-text);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.guide-content h3 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--ctp-text);
+    margin: 2.5rem 0 1.25rem;
+    padding-left: 1rem;
+    border-left: 4px solid var(--ctp-mauve);
+}
+
+.guide-content p {
+    color: var(--ctp-subtext1);
+    line-height: 1.9;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+}
+
+.guide-content ul,
+.guide-content ol {
+    color: var(--ctp-subtext1);
+    line-height: 1.9;
+    margin-bottom: 1.5rem;
+    padding-left: 2rem;
+    font-size: 1.1rem;
+}
+
+.guide-content li {
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.guide-content li::marker {
+    color: var(--ctp-mauve);
+    font-weight: 600;
+}
+
+/* ============================================
+   CODE BLOCKS
+   ============================================ */
+
+.guide-content pre {
+    background: var(--ctp-mantle);
+    border: 2px solid var(--ctp-surface1);
+    border-radius: 16px;
+    padding: 2rem;
+    margin: 2rem 0;
+    overflow-x: auto;
+    box-shadow: inset 0 2px 12px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.guide-content pre::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(202, 158, 230, 0.05), transparent);
+    pointer-events: none;
+}
+
+.guide-content code {
+    font-family: 'Fira Code', 'JetBrains Mono', 'Consolas', 'Monaco', monospace;
+    font-size: 0.95rem;
+    color: var(--ctp-green);
+    background: var(--ctp-surface0);
+    padding: 0.3rem 0.6rem;
+    border-radius: 6px;
+    font-weight: 500;
+}
+
+.guide-content pre code {
+    background: transparent;
+    padding: 0;
+    color: var(--ctp-text);
+    display: block;
+    line-height: 1.6;
+}
+
+/* ============================================
+   ENHANCED ELEMENTS
+   ============================================ */
+
+.guide-content strong {
+    color: var(--ctp-mauve);
+    font-weight: 600;
+}
+
+.guide-content em {
+    color: var(--ctp-pink);
+    font-style: italic;
+}
+
+.guide-content a {
+    color: var(--ctp-blue);
+    text-decoration: none;
+    font-weight: 600;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.guide-content a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--ctp-mauve);
+    transition: width 0.3s ease;
+}
+
+.guide-content a:hover {
+    color: var(--ctp-mauve);
+}
+
+.guide-content a:hover::after {
+    width: 100%;
+}
+
+/* ============================================
+   ALERT BOXES
+   ============================================ */
+
+.alert {
+    padding: 1.5rem 2rem;
+    border-radius: 16px;
+    margin: 2rem 0;
+    border-left: 5px solid;
+    background: rgba(var(--ctp-surface0-rgb, 65, 69, 89), 0.5);
+    backdrop-filter: blur(10px);
+}
+
+.alert-info {
+    border-left-color: var(--ctp-blue);
+    background: linear-gradient(135deg, rgba(140, 170, 238, 0.15), rgba(140, 170, 238, 0.05));
+}
+
+.alert-warning {
+    border-left-color: var(--ctp-yellow);
+    background: linear-gradient(135deg, rgba(229, 200, 144, 0.15), rgba(229, 200, 144, 0.05));
+}
+
+.alert-success {
+    border-left-color: var(--ctp-green);
+    background: linear-gradient(135deg, rgba(166, 209, 137, 0.15), rgba(166, 209, 137, 0.05));
+}
+
+.alert-danger {
+    border-left-color: var(--ctp-red);
+    background: linear-gradient(135deg, rgba(231, 130, 132, 0.15), rgba(231, 130, 132, 0.05));
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 1024px) {
+    .niche-container {
+        padding: 7rem 1.5rem 3rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .niche-header h1 {
+        font-size: 2.5rem;
+    }
+
+    .niche-subtitle {
+        font-size: 1.1rem;
+    }
+
+    .guide-content section {
+        padding: 2rem;
+    }
+
+    .guide-content h2 {
+        font-size: 1.75rem;
+    }
+
+    .guide-content h3 {
+        font-size: 1.4rem;
+    }
+
+    .guide-content p,
+    .guide-content li {
+        font-size: 1rem;
+    }
+
+    .guide-content pre {
+        padding: 1.5rem;
+        font-size: 0.85rem;
+    }
+
+    .niche-back-nav {
+        top: 1rem;
+        left: 1rem;
+    }
+
+    .guide-theme-toggle {
+        top: 1rem;
+        right: 1rem;
+        width: 70px;
+        height: 36px;
+    }
+
+    .guide-theme-slider {
+        width: 28px;
+        height: 28px;
+    }
+
+    .guide-theme-slider.light-mode {
+        transform: translateX(34px);
+    }
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .gradient-orb {
+        animation: none;
+    }
+}
+
+/* ============================================
+   SMOOTH TRANSITIONS
+   ============================================ */
+
+* {
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ============================================
+   TYPOGRAPHY ENHANCEMENTS
+   ============================================ */
+
+body {
+    font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3 {
+    text-wrap: balance;
+}
+
+p {
+    text-wrap: pretty;
+}

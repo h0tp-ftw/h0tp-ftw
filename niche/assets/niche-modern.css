@@ -1,0 +1,373 @@
+/* ============================================
+   CATPPUCCIN THEME VARIABLES - ENHANCED
+   ============================================ */
+
+:root[data-theme="frappe"] {
+    --ctp-rosewater: #f2d5cf;
+    --ctp-flamingo: #eebebe;
+    --ctp-pink: #f4b8e4;
+    --ctp-mauve: #ca9ee6;
+    --ctp-red: #e78284;
+    --ctp-maroon: #ea999c;
+    --ctp-peach: #ef9f76;
+    --ctp-yellow: #e5c890;
+    --ctp-green: #a6d189;
+    --ctp-teal: #81c8be;
+    --ctp-sky: #99d1db;
+    --ctp-sapphire: #85c1dc;
+    --ctp-blue: #8caaee;
+    --ctp-lavender: #babbf1;
+    --ctp-text: #c6d0f5;
+    --ctp-subtext1: #b5bfe2;
+    --ctp-subtext0: #a5adce;
+    --ctp-overlay2: #949cbb;
+    --ctp-overlay1: #838ba7;
+    --ctp-overlay0: #737994;
+    --ctp-surface2: #626880;
+    --ctp-surface1: #51576d;
+    --ctp-surface0: #414559;
+    --ctp-base: #303446;
+    --ctp-mantle: #292c3c;
+    --ctp-crust: #232634;
+    --accent: var(--ctp-mauve);
+    --accent-hover: var(--ctp-pink);
+}
+
+:root[data-theme="latte"] {
+    --ctp-rosewater: #dc8a78;
+    --ctp-flamingo: #dd7878;
+    --ctp-pink: #ea76cb;
+    --ctp-mauve: #8839ef;
+    --ctp-red: #d20f39;
+    --ctp-maroon: #e64553;
+    --ctp-peach: #fe640b;
+    --ctp-yellow: #df8e1d;
+    --ctp-green: #40a02b;
+    --ctp-teal: #179299;
+    --ctp-sky: #04a5e5;
+    --ctp-sapphire: #209fb5;
+    --ctp-blue: #1e66f5;
+    --ctp-lavender: #7287fd;
+    --ctp-text: #4c4f69;
+    --ctp-subtext1: #5c5f77;
+    --ctp-subtext0: #6c6f85;
+    --ctp-overlay2: #7c7f93;
+    --ctp-overlay1: #8c8fa1;
+    --ctp-overlay0: #9ca0b0;
+    --ctp-surface2: #acb0be;
+    --ctp-surface1: #bcc0cc;
+    --ctp-surface0: #ccd0da;
+    --ctp-base: #eff1f5;
+    --ctp-mantle: #e6e9ef;
+    --ctp-crust: #dce0e8;
+    --accent: var(--ctp-mauve);
+    --accent-hover: var(--ctp-pink);
+}
+
+/* ============================================
+   ANIMATED BACKGROUND
+   ============================================ */
+
+.niche-animated-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+/* Floating gradient orbs */
+.gradient-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.3;
+    pointer-events: none;
+    animation: float-orb 30s ease-in-out infinite;
+}
+
+.gradient-orb.orb-1 {
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, var(--ctp-mauve) 0%, var(--ctp-pink) 50%, transparent 70%);
+    top: 10%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.gradient-orb.orb-2 {
+    width: 450px;
+    height: 450px;
+    background: radial-gradient(circle, var(--ctp-blue) 0%, var(--ctp-sapphire) 50%, transparent 70%);
+    top: 50%;
+    right: 10%;
+    animation-delay: 5s;
+}
+
+.gradient-orb.orb-3 {
+    width: 550px;
+    height: 550px;
+    background: radial-gradient(circle, var(--ctp-pink) 0%, var(--ctp-mauve) 50%, transparent 70%);
+    bottom: 15%;
+    left: 40%;
+    animation-delay: 10s;
+}
+
+@keyframes float-orb {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    25% {
+        transform: translate(40px, -40px) scale(1.1);
+    }
+
+    50% {
+        transform: translate(-30px, 30px) scale(0.9);
+    }
+
+    75% {
+        transform: translate(35px, 15px) scale(1.05);
+    }
+}
+
+/* Mesh gradient overlay */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        radial-gradient(circle at 20% 50%, rgba(202, 158, 230, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(140, 170, 238, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 40% 80%, rgba(244, 184, 228, 0.08) 0%, transparent 50%);
+    animation: gradient-shift 25s ease infinite;
+    pointer-events: none;
+    z-index: -1;
+}
+
+@keyframes gradient-shift {
+
+    0%,
+    100% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+
+    33% {
+        transform: translate(8px, -8px) rotate(1deg);
+    }
+
+    66% {
+        transform: translate(-8px, 8px) rotate(-1deg);
+    }
+}
+
+/* ============================================
+   GLASSMORPHISM CONTAINERS
+   ============================================ */
+
+.glass-container {
+    background: rgba(var(--ctp-surface0-rgb, 65, 69, 89), 0.7);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 2px solid var(--ctp-surface1);
+    border-radius: 24px;
+    padding: 2.5rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.glass-container:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+    box-shadow:
+        0 12px 48px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08),
+        0 0 0 1px var(--accent);
+}
+
+/* ============================================
+   MODERN BUTTONS
+   ============================================ */
+
+.modern-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, var(--ctp-mauve), var(--ctp-pink));
+    color: var(--ctp-base);
+    border: none;
+    border-radius: 16px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 24px rgba(202, 158, 230, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.modern-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+}
+
+.modern-btn:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 12px 36px rgba(202, 158, 230, 0.5);
+}
+
+.modern-btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.modern-btn:active {
+    transform: translateY(-2px) scale(0.98);
+}
+
+.modern-btn-secondary {
+    background: var(--ctp-surface0);
+    color: var(--ctp-text);
+    border: 2px solid var(--ctp-surface1);
+    box-shadow: none;
+}
+
+.modern-btn-secondary:hover {
+    background: var(--ctp-surface1);
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+/* ============================================
+   MODERN INPUTS
+   ============================================ */
+
+.modern-input {
+    width: 100%;
+    padding: 1rem 1.25rem;
+    background: var(--ctp-surface0);
+    border: 2px solid var(--ctp-surface1);
+    border-radius: 12px;
+    color: var(--ctp-text);
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.3s ease;
+}
+
+.modern-input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(202, 158, 230, 0.2);
+    background: var(--ctp-mantle);
+}
+
+.modern-input::placeholder {
+    color: var(--ctp-subtext0);
+}
+
+/* ============================================
+   THEME TOGGLE
+   ============================================ */
+
+.theme-toggle {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    width: 50px;
+    height: 50px;
+    background: var(--ctp-surface0);
+    border: 2px solid var(--ctp-surface1);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.theme-toggle:hover {
+    border-color: var(--accent);
+    transform: scale(1.1) rotate(15deg);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
+}
+
+.theme-toggle svg {
+    width: 24px;
+    height: 24px;
+    color: var(--ctp-text);
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 768px) {
+    .glass-container {
+        padding: 1.5rem;
+    }
+
+    .modern-btn {
+        padding: 0.875rem 1.5rem;
+        font-size: 1rem;
+    }
+
+    .gradient-orb {
+        filter: blur(60px);
+        opacity: 0.2;
+    }
+
+    .theme-toggle {
+        top: 1rem;
+        right: 1rem;
+        width: 44px;
+        height: 44px;
+    }
+}
+
+/* ============================================
+   SMOOTH TRANSITIONS
+   ============================================ */
+
+* {
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .gradient-orb {
+        animation: none;
+    }
+}

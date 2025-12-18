@@ -1,19 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Using Gemini CLI for Advanced Coding | h0tp-ftw</title>
-    <link rel="stylesheet" href="../assets/styles.css">
-    <link rel="stylesheet" href="assets/niche.css">
-    <link rel="stylesheet" href="assets/guide.css">
+    <link rel="stylesheet" href="assets/guide-breathtaking.css">
 </head>
+
 <body data-theme="frappe">
+    <!-- Animated Background -->
+    <div class="guide-animated-bg">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+    </div>
+
+    <!-- Theme Toggle -->
+    <button class="guide-theme-toggle" id="guide-theme-toggle" aria-label="Toggle theme">
+        <div class="guide-theme-slider">
+            <svg class="guide-slider-icon moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+            </svg>
+            <svg class="guide-slider-icon sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <circle cx="12" cy="12" r="5" />
+                <path
+                    d="M12 1v2m0 18v2M23 12h-2M3 12H1m19.071-7.071l-1.414 1.414M5.343 18.657l-1.414 1.414m15.142 0l-1.414-1.414M5.343 5.343L3.929 3.929" />
+            </svg>
+        </div>
+    </button>
+
     <!-- Back Button -->
     <div class="niche-back-nav">
         <a href="../index.html#niche-projects" class="back-btn">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M15 18l-6-6 6-6"/>
+                <path d="M15 18l-6-6 6-6" />
             </svg>
             Back to Portfolio
         </a>
@@ -38,12 +59,15 @@
             <main class="guide-content">
                 <section>
                     <h2>What is Gemini CLI?</h2>
-                    <p>The Gemini CLI is a powerful tool that brings the capabilities of Google's Gemini models to your terminal. It allows you to interact with Gemini in a conversational way, and to integrate it into your scripts and workflows.</p>
+                    <p>The Gemini CLI is a powerful tool that brings the capabilities of Google's Gemini models to your
+                        terminal. It allows you to interact with Gemini in a conversational way, and to integrate it
+                        into your scripts and workflows.</p>
                 </section>
 
                 <section>
                     <h2>Setup and Authentication</h2>
-                    <p>Before you can use the Gemini CLI, you need to install it and authenticate with your Google account. This is typically done using the `gcloud` command-line tool.</p>
+                    <p>Before you can use the Gemini CLI, you need to install it and authenticate with your Google
+                        account. This is typically done using the `gcloud` command-line tool.</p>
                     <pre><code>gcloud auth application-default login</code></pre>
                 </section>
 
@@ -56,12 +80,15 @@
 
                 <section>
                     <h2>Advanced Techniques</h2>
-                    <p>For more advanced use cases, you can use the Gemini CLI to analyze code, generate documentation, and even write new code from scratch.</p>
+                    <p>For more advanced use cases, you can use the Gemini CLI to analyze code, generate documentation,
+                        and even write new code from scratch.</p>
                     <h3>Code Analysis</h3>
-                    <p>You can pipe a code file to Gemini and ask it to explain the code, identify potential bugs, or suggest improvements.</p>
+                    <p>You can pipe a code file to Gemini and ask it to explain the code, identify potential bugs, or
+                        suggest improvements.</p>
                     <pre><code>cat my_script.py | gemini "Explain this Python script"</code></pre>
                     <h3>Code Generation</h3>
-                    <p>You can also ask Gemini to generate code for you. Be as specific as possible in your prompt to get the best results.</p>
+                    <p>You can also ask Gemini to generate code for you. Be as specific as possible in your prompt to
+                        get the best results.</p>
                     <pre><code>gemini "Write a Python function that takes a list of numbers and returns the sum"</code></pre>
                 </section>
 
@@ -79,5 +106,33 @@
     </div>
 
     <script src="assets/guide-utils.js"></script>
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('guide-theme-toggle');
+        const html = document.documentElement;
+
+        const savedTheme = localStorage.getItem('theme') || 'frappe';
+        html.setAttribute('data-theme', savedTheme);
+
+        function updateTogglePosition() {
+            const currentTheme = html.getAttribute('data-theme');
+            const slider = document.querySelector('.guide-theme-slider');
+            if (slider) {
+                slider.classList.toggle('light-mode', currentTheme === 'latte');
+            }
+        }
+
+        updateTogglePosition();
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'frappe' ? 'latte' : 'frappe';
+
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateTogglePosition();
+        });
+    </script>
 </body>
+
 </html>

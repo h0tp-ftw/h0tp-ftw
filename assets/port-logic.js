@@ -359,6 +359,15 @@ function formatNumber(num) {
     }
     return num.toString();
 }
+
+function renderRepoName(fullName) {
+    if (!fullName.includes('/')) return `<span>${fullName}</span>`;
+    const [owner, name] = fullName.split('/');
+    return `
+        <span class="repo-owner">${owner}/</span>
+        <span class="repo-title">${name}</span>
+    `;
+}
 // ============================================
 // LOAD FEATURED PROJECTS - FULLY CLICKABLE!
 // ============================================
@@ -405,7 +414,7 @@ async function loadFeaturedProjects() {
                     </div>
                     <div class="project-info">
                         <h3 class="project-name">
-                            <span>${repo.full_name}</span>
+                            ${renderRepoName(repo.full_name)}
                         </h3>
                         <p class="project-description">${description}</p>
                         <div class="project-stats">
@@ -423,7 +432,7 @@ async function loadFeaturedProjects() {
                     </div>
                     <div class="project-info">
                         <h3 class="project-name">
-                            <span>${repo.full_name}</span>
+                            ${renderRepoName(repo.full_name)}
                         </h3>
                         <p class="project-description">${description}</p>
                         <div class="project-stats">
@@ -501,7 +510,7 @@ async function loadPortfolioDataFromCSV() {
             periodReturns.push(periodVal);
         });
 
-        console.log(`✅ Loaded ${months.length} months: ${months[0]} to ${months[months.length-1]}`);
+        console.log(`✅ Loaded ${months.length} months: ${months[0]} to ${months[months.length - 1]}`);
 
         return {
             months: months,
@@ -567,9 +576,9 @@ function renderChart(viewType) {
                 label: label,
                 data: data,
                 borderColor: '#ca9ee6',
-                backgroundColor: function(context) {
+                backgroundColor: function (context) {
                     const chart = context.chart;
-                    const {ctx, chartArea} = chart;
+                    const { ctx, chartArea } = chart;
                     if (!chartArea) return null;
 
                     const gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
@@ -618,7 +627,7 @@ function renderChart(viewType) {
                     padding: 12,
                     displayColors: false,
                     callbacks: {
-                        label: function(context) {
+                        label: function (context) {
                             const prefix = viewType === 'cumulative' ? 'TWR' : 'Period';
                             return `${prefix}: ${context.parsed.y.toFixed(2)}%`;
                         }
@@ -645,7 +654,7 @@ function renderChart(viewType) {
                     },
                     ticks: {
                         color: theme.textColor,
-                        callback: function(value) {
+                        callback: function (value) {
                             return value + '%';
                         }
                     }
@@ -778,8 +787,8 @@ async function initializeSurprise() {
     }
 
     if (starredProjects.length > 0) {
-        const initialProjects = getRandomProjects(3);
-        display3RandomCards(initialProjects);
+        const initialProjects = getRandomProjects(5);
+        display5RandomCards(initialProjects);
     }
 }
 
@@ -794,8 +803,8 @@ surpriseBtn.addEventListener('click', () => {
         surpriseBtn.disabled = false;
     }, 800);
 
-    const randomProjects = getRandomProjects(3);
-    display3RandomCards(randomProjects);
+    const randomProjects = getRandomProjects(5);
+    display5RandomCards(randomProjects);
 });
 
 function getRandomProjects(count) {
@@ -803,7 +812,7 @@ function getRandomProjects(count) {
     return shuffled.slice(0, Math.min(count, starredProjects.length));
 }
 
-function display3RandomCards(projects) {
+function display5RandomCards(projects) {
     surpriseCardsGrid.innerHTML = '';
 
     projects.forEach((repo, index) => {
@@ -824,7 +833,7 @@ function display3RandomCards(projects) {
             </div>
             <div class="project-info">
                 <h3 class="project-name">
-                    <span>${repo.full_name}</span>
+                    ${renderRepoName(repo.full_name)}
                 </h3>
                 <p class="project-description">${description}</p>
                 <div class="project-stats">
@@ -912,7 +921,7 @@ function displayMoreStars(filtered = allStars) {
             </div>
             <div class="project-info">
                 <h3 class="project-name">
-                    <span>${repo.full_name}</span>
+                    ${renderRepoName(repo.full_name)}
                 </h3>
                 <p class="project-description">${description}</p>
                 <div class="project-stats">
@@ -944,7 +953,7 @@ function filterStars() {
     const selectedLang = languageFilter.value;
 
     const filtered = allStars.filter(repo => {
-        const matchesSearch = !searchTerm || 
+        const matchesSearch = !searchTerm ||
             repo.name.toLowerCase().includes(searchTerm) ||
             repo.full_name.toLowerCase().includes(searchTerm) ||
             (repo.description && repo.description.toLowerCase().includes(searchTerm));
@@ -1007,12 +1016,11 @@ async function loadCoolPeople() {
         container.innerHTML = `<div class="loading-state"><p>Error loading following list.</p></div>`;
     }
 }
-
 // ============================================
 // INITIALIZE EVERYTHING!
 // ============================================
 
-document.addEventListener('DOMContentLoaded', async () => {
+async function init() {
     console.log('🚀 Initializing spectacular portfolio...');
 
     try {
@@ -1040,7 +1048,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.error('❌ Error during initialization:', error);
         console.error('Stack trace:', error.stack);
     }
-});
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+} else {
+    init();
+}
 
 
 // ============================================

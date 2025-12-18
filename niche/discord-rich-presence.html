@@ -1,19 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Enabling Discord Rich Presence in Flatpak | h0tp-ftw</title>
-    <link rel="stylesheet" href="../assets/styles.css">
-    <link rel="stylesheet" href="assets/niche.css">
-    <link rel="stylesheet" href="assets/guide.css">
+    <link rel="stylesheet" href="assets/guide-breathtaking.css">
 </head>
+
 <body data-theme="frappe">
+    <!-- Animated Background -->
+    <div class="guide-animated-bg">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+    </div>
+
+    <!-- Theme Toggle -->
+    <button class="guide-theme-toggle" id="guide-theme-toggle" aria-label="Toggle theme">
+        <div class="guide-theme-slider">
+            <svg class="guide-slider-icon moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+            </svg>
+            <svg class="guide-slider-icon sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <circle cx="12" cy="12" r="5" />
+                <path
+                    d="M12 1v2m0 18v2M23 12h-2M3 12H1m19.071-7.071l-1.414 1.414M5.343 18.657l-1.414 1.414m15.142 0l-1.414-1.414M5.343 5.343L3.929 3.929" />
+            </svg>
+        </div>
+    </button>
+
     <!-- Back Button -->
     <div class="niche-back-nav">
         <a href="../index.html#niche-projects" class="back-btn">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M15 18l-6-6 6-6"/>
+                <path d="M15 18l-6-6 6-6" />
             </svg>
             Back to Portfolio
         </a>
@@ -26,49 +47,75 @@
             <p class="niche-subtitle">A guide to making Rich Presence work for your sandboxed applications.</p>
         </header>
 
-        <div class="guide-layout">
-            <aside class="guide-sidebar">
-                <nav class="guide-toc">
-                    <h3>On this page</h3>
-                    <ul>
-                        <!-- TOC will be generated here -->
-                    </ul>
-                </nav>
-            </aside>
-            <main class="guide-content">
-                <section>
-                    <h2>What is Rich Presence?</h2>
-                    <p>Discord's Rich Presence is a feature that allows you to show the game you're playing, and other cool details, in your Discord status. However, this can be tricky to set up for applications installed via Flatpak due to sandboxing.</p>
-                </section>
+        <div class="guide-content">
+            <section>
+                <h2>What is Rich Presence?</h2>
+                <p>Discord's Rich Presence is a feature that allows you to show the game you're playing, and other cool
+                    details, in your Discord status. However, this can be tricky to set up for applications installed
+                    via Flatpak due to sandboxing.</p>
+            </section>
 
-                <section>
-                    <h2>Why Flatpak makes this tricky</h2>
-                    <p>Flatpak applications run in a sandboxed environment, which means they are isolated from the rest of your system. This is great for security, but it can prevent applications from communicating with Discord to set up Rich Presence.</p>
-                </section>
+            <section>
+                <h2>Why Flatpak makes this tricky</h2>
+                <p>Flatpak applications run in a sandboxed environment, which means they are isolated from the rest of
+                    your system. This is great for security, but it can prevent applications from communicating with
+                    Discord to set up Rich Presence.</p>
+            </section>
 
-                <section>
-                    <h2>Installation Steps</h2>
-                    <p>To get Rich Presence working, you need to grant the Flatpak application permission to access the Discord RPC socket. This can be done using Flatseal or the command line.</p>
-                    <h3>Using Flatseal</h3>
-                    <p>Flatseal is a graphical utility to manage Flatpak permissions. Find your application in Flatseal, and under "Filesystem", add `xdg-run/discord-ipc-0` to the "Other files" section.</p>
-                    <h3>Using the Command Line</h3>
-                    <p>You can also grant the permission using the command line:</p>
-                    <pre><code>flatpak override --user --filesystem=xdg-run/discord-ipc-0 com.example.AppName</code></pre>
-                </section>
+            <section>
+                <h2>Installation Steps</h2>
+                <p>To get Rich Presence working, you need to grant the Flatpak application permission to access the
+                    Discord RPC socket. This can be done using Flatseal or the command line.</p>
+                <h3>Using Flatseal</h3>
+                <p>Flatseal is a graphical utility to manage Flatpak permissions. Find your application in Flatseal, and
+                    under "Filesystem", add <code>xdg-run/discord-ipc-0</code> to the "Other files" section.</p>
+                <h3>Using the Command Line</h3>
+                <p>You can also grant the permission using the command line:</p>
+                <pre><code>flatpak override --user --filesystem=xdg-run/discord-ipc-0 com.example.AppName</code></pre>
+            </section>
 
-                <section>
-                    <h2>Configuration</h2>
-                    <p>Once the permission is granted, you may need to restart the application and Discord for the changes to take effect. In some cases, you may also need to enable Rich Presence in the application's settings.</p>
-                </section>
+            <section>
+                <h2>Configuration</h2>
+                <p>Once the permission is granted, you may need to restart the application and Discord for the changes
+                    to take effect. In some cases, you may also need to enable Rich Presence in the application's
+                    settings.</p>
+            </section>
 
-                <section>
-                    <h2>Testing Your Setup</h2>
-                    <p>After following the steps above, launch the application and check your Discord profile. If everything is working correctly, you should see the Rich Presence status.</p>
-                </section>
-            </main>
+            <section>
+                <h2>Testing Your Setup</h2>
+                <p>After following the steps above, launch the application and check your Discord profile. If everything
+                    is working correctly, you should see the Rich Presence status.</p>
+            </section>
         </div>
     </div>
 
-    <script src="assets/guide-utils.js"></script>
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('guide-theme-toggle');
+        const html = document.documentElement;
+
+        const savedTheme = localStorage.getItem('theme') || 'frappe';
+        html.setAttribute('data-theme', savedTheme);
+
+        function updateTogglePosition() {
+            const currentTheme = html.getAttribute('data-theme');
+            const slider = document.querySelector('.guide-theme-slider');
+            if (slider) {
+                slider.classList.toggle('light-mode', currentTheme === 'latte');
+            }
+        }
+
+        updateTogglePosition();
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'frappe' ? 'latte' : 'frappe';
+
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateTogglePosition();
+        });
+    </script>
 </body>
+
 </html>

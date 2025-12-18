@@ -1,0 +1,301 @@
+/* ============================================
+   TWR CALCULATOR - MODERN CATPPUCCIN THEME
+   ============================================ */
+
+/* Import shared modern styles */
+@import url('niche-modern.css');
+
+/* ============================================
+   LAYOUT
+   ============================================ */
+
+.twr-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.twr-form-container,
+.twr-chart-container {
+    background: rgba(var(--ctp-surface0-rgb, 65, 69, 89), 0.7);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 2px solid var(--ctp-surface1);
+    border-radius: 24px;
+    padding: 2.5rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.twr-form-container:hover,
+.twr-chart-container:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+    box-shadow:
+        0 12px 48px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.twr-form-container h2,
+.twr-chart-container h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--ctp-text);
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, var(--ctp-text), var(--ctp-mauve));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.twr-form-container h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--ctp-subtext1);
+    margin: 2rem 0 1rem;
+}
+
+/* ============================================
+   FORM INPUTS
+   ============================================ */
+
+.form-group {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 1rem 1.25rem;
+    background: var(--ctp-mantle);
+    border: 2px solid var(--ctp-surface1);
+    border-radius: 12px;
+    color: var(--ctp-text);
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(202, 158, 230, 0.2);
+    background: var(--ctp-surface0);
+}
+
+.form-group input:focus+label,
+.form-group input:not(:placeholder-shown)+label {
+    transform: translateY(-2.5rem) scale(0.85);
+    color: var(--accent);
+}
+
+.form-group label {
+    position: absolute;
+    left: 1.25rem;
+    top: 1rem;
+    color: var(--ctp-subtext0);
+    font-size: 1rem;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    transform-origin: left;
+}
+
+/* ============================================
+   CASH FLOWS
+   ============================================ */
+
+#cash-flows-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.cash-flow-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--ctp-mantle);
+    border: 1px solid var(--ctp-surface1);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.cash-flow-item:hover {
+    border-color: var(--accent);
+    background: var(--ctp-surface0);
+}
+
+.cash-flow-item input {
+    background: var(--ctp-surface0);
+    border: 1px solid var(--ctp-surface1);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    color: var(--ctp-text);
+    font-size: 0.95rem;
+}
+
+.cash-flow-item input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px rgba(202, 158, 230, 0.15);
+}
+
+.remove-flow-btn {
+    background: var(--ctp-red);
+    color: var(--ctp-base);
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.remove-flow-btn:hover {
+    background: var(--ctp-maroon);
+    transform: scale(1.05);
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+
+.add-flow-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.5rem;
+    background: var(--ctp-surface0);
+    color: var(--ctp-text);
+    border: 2px dashed var(--ctp-surface2);
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    justify-content: center;
+}
+
+.add-flow-btn:hover {
+    border-color: var(--accent);
+    border-style: solid;
+    background: var(--ctp-surface1);
+    color: var(--accent);
+}
+
+.button-group {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.twr-button {
+    flex: 1;
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, var(--ctp-mauve), var(--ctp-pink));
+    color: var(--ctp-base);
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 24px rgba(202, 158, 230, 0.3);
+}
+
+.twr-button:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 36px rgba(202, 158, 230, 0.5);
+}
+
+.twr-button:active {
+    transform: translateY(-2px);
+}
+
+.twr-button.secondary {
+    background: var(--ctp-surface0);
+    color: var(--ctp-text);
+    border: 2px solid var(--ctp-surface1);
+    box-shadow: none;
+}
+
+.twr-button.secondary:hover {
+    background: var(--ctp-surface1);
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+/* ============================================
+   RESULTS
+   ============================================ */
+
+#results-container {
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+.results-hidden {
+    display: none;
+}
+
+.results-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    color: var(--ctp-subtext0);
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+#twr-chart-wrapper {
+    flex: 1;
+    position: relative;
+}
+
+#twr-chart {
+    width: 100%;
+    height: 100%;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 1024px) {
+    .twr-container {
+        grid-template-columns: 1fr;
+    }
+
+    .cash-flow-item {
+        grid-template-columns: 1fr;
+    }
+
+    .button-group {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .twr-form-container,
+    .twr-chart-container {
+        padding: 1.5rem;
+    }
+
+    .form-group input {
+        padding: 0.875rem 1rem;
+    }
+
+    .twr-button {
+        padding: 0.875rem 1.5rem;
+        font-size: 1rem;
+    }
+}
