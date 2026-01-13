@@ -5,21 +5,344 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TWR Calculator | h0tp-ftw</title>
-    <link rel="stylesheet" href="../assets/styles.css">
-    <link rel="stylesheet" href="assets/niche.css">
-    <link rel="stylesheet" href="assets/niche-modern.css">
-    <link rel="stylesheet" href="assets/twr-modern.css">
-    <link rel="stylesheet" href="assets/twr-calculator-enhanced.css">
+    <link rel="stylesheet" href="assets/guide-breathtaking.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* TWR Calculator Premium Styles */
+        .twr-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 2.5rem;
+            align-items: start;
+        }
+
+        .twr-panel {
+            background: rgba(65, 69, 89, 0.6);
+            backdrop-filter: blur(30px) saturate(180%);
+            -webkit-backdrop-filter: blur(30px) saturate(180%);
+            border: 2px solid var(--ctp-surface1);
+            border-radius: 24px;
+            padding: 2.5rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .twr-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--ctp-mauve), var(--ctp-pink), var(--ctp-blue));
+        }
+
+        .twr-panel:hover {
+            border-color: var(--ctp-mauve);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25), 0 0 30px rgba(202, 158, 230, 0.15);
+        }
+
+        .twr-panel h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--ctp-text);
+            margin: 0 0 2rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        /* Form Inputs */
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--ctp-subtext1);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            background: var(--ctp-mantle);
+            border: 2px solid var(--ctp-surface1);
+            border-radius: 12px;
+            color: var(--ctp-text);
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--ctp-mauve);
+            box-shadow: 0 0 0 3px rgba(202, 158, 230, 0.2);
+            background: var(--ctp-surface0);
+        }
+
+        .form-group input::placeholder {
+            color: var(--ctp-overlay0);
+        }
+
+        /* Cash Flows Section */
+        .cash-flows-section h3 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--ctp-text);
+            margin: 2rem 0 1rem;
+            padding-left: 1rem;
+            border-left: 3px solid var(--ctp-mauve);
+        }
+
+        #cash-flows-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-height: 300px;
+            overflow-y: auto;
+            padding-right: 0.5rem;
+        }
+
+        .cash-flow-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 0.75rem;
+            align-items: center;
+            padding: 1rem;
+            background: var(--ctp-mantle);
+            border-radius: 12px;
+            border: 1px solid var(--ctp-surface1);
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cash-flow-row input {
+            padding: 0.75rem;
+            background: var(--ctp-surface0);
+            border: 1px solid var(--ctp-surface2);
+            border-radius: 8px;
+            color: var(--ctp-text);
+            font-size: 0.9rem;
+        }
+
+        .cash-flow-row input:focus {
+            border-color: var(--ctp-mauve);
+            outline: none;
+        }
+
+        .remove-flow-btn {
+            width: 36px;
+            height: 36px;
+            background: var(--ctp-red);
+            color: var(--ctp-base);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .remove-flow-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(231, 130, 132, 0.3);
+        }
+
+        /* Buttons */
+        .add-flow-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            padding: 0.875rem;
+            background: var(--ctp-surface0);
+            border: 2px dashed var(--ctp-surface2);
+            border-radius: 12px;
+            color: var(--ctp-subtext1);
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .add-flow-btn:hover {
+            background: var(--ctp-surface1);
+            border-color: var(--ctp-mauve);
+            color: var(--ctp-mauve);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .twr-button {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .twr-button.primary {
+            background: linear-gradient(135deg, var(--ctp-mauve), var(--ctp-pink));
+            color: var(--ctp-base);
+            box-shadow: 0 4px 16px rgba(202, 158, 230, 0.3);
+        }
+
+        .twr-button.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(202, 158, 230, 0.4);
+        }
+
+        .twr-button.secondary {
+            background: var(--ctp-surface0);
+            color: var(--ctp-text);
+            border: 2px solid var(--ctp-surface1);
+        }
+
+        .twr-button.secondary:hover {
+            background: var(--ctp-surface1);
+            border-color: var(--ctp-mauve);
+        }
+
+        /* Results Panel */
+        .results-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 300px;
+            text-align: center;
+            color: var(--ctp-subtext0);
+        }
+
+        .results-placeholder .placeholder-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.5;
+        }
+
+        .results-placeholder p {
+            font-size: 1.1rem;
+            max-width: 300px;
+        }
+
+        #twr-chart-wrapper {
+            display: none;
+        }
+
+        #twr-chart-wrapper.visible {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .result-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .stat-card {
+            background: var(--ctp-mantle);
+            border-radius: 12px;
+            padding: 1.25rem;
+            text-align: center;
+        }
+
+        .stat-card .stat-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--ctp-green);
+        }
+
+        .stat-card .stat-value.negative {
+            color: var(--ctp-red);
+        }
+
+        .stat-card .stat-label {
+            font-size: 0.85rem;
+            color: var(--ctp-subtext0);
+            margin-top: 0.25rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .twr-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .cash-flow-row {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+
+            .remove-flow-btn {
+                width: 100%;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .result-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 
 <body data-theme="frappe">
     <!-- Animated Background -->
-    <div class="niche-animated-bg">
+    <div class="guide-animated-bg">
         <div class="gradient-orb orb-1"></div>
         <div class="gradient-orb orb-2"></div>
         <div class="gradient-orb orb-3"></div>
     </div>
+
+    <!-- Theme Toggle -->
+    <button class="guide-theme-toggle" id="guide-theme-toggle" aria-label="Toggle theme">
+        <div class="guide-theme-slider">
+            <svg class="guide-slider-icon moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+            </svg>
+            <svg class="guide-slider-icon sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <circle cx="12" cy="12" r="5" />
+                <path d="M12 1v2m0 18v2M23 12h-2M3 12H1m19.071-7.071l-1.414 1.414M5.343 18.657l-1.414 1.414m15.142 0l-1.414-1.414M5.343 5.343L3.929 3.929" />
+            </svg>
+        </div>
+    </button>
 
     <!-- Back Button -->
     <div class="niche-back-nav">
@@ -35,57 +358,187 @@
     <div class="niche-container">
         <header class="niche-header">
             <h1>📊 Time-Weighted Return Calculator</h1>
-            <p class="niche-subtitle">Calculate accurate portfolio returns accounting for cash flows</p>
+            <p class="niche-subtitle">Calculate accurate portfolio returns accounting for deposits and withdrawals</p>
         </header>
 
-        <div class="twr-container">
-            <div class="twr-form-container">
-                <h2>Portfolio Data</h2>
+        <div class="twr-layout">
+            <!-- Input Panel -->
+            <div class="twr-panel">
+                <h2>📝 Portfolio Data</h2>
 
                 <div class="form-group">
-                    <input type="date" id="start-date" placeholder=" " />
                     <label for="start-date">Start Date</label>
+                    <input type="date" id="start-date" />
                 </div>
 
                 <div class="form-group">
-                    <input type="number" id="start-balance" placeholder=" " step="0.01" />
                     <label for="start-balance">Starting Balance ($)</label>
+                    <input type="number" id="start-balance" placeholder="e.g., 10000" step="0.01" />
                 </div>
 
-                <h3>Cash Flows</h3>
-                <div id="cash-flows-container">
-                    <!-- Dynamic cash flows will be added here -->
-                </div>
+                <div class="cash-flows-section">
+                    <h3>Cash Flows</h3>
+                    <div id="cash-flows-container">
+                        <!-- Dynamic cash flows -->
+                    </div>
 
-                <button class="add-flow-btn" id="add-flow-btn">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 5v14M5 12h14" />
-                    </svg>
-                    Add Cash Flow
-                </button>
+                    <button class="add-flow-btn" id="add-flow-btn">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 5v14M5 12h14" />
+                        </svg>
+                        Add Cash Flow
+                    </button>
+                </div>
 
                 <div class="button-group">
-                    <button class="twr-button" id="calculate-btn">Calculate TWR</button>
+                    <button class="twr-button primary" id="calculate-btn">Calculate TWR</button>
                     <button class="twr-button secondary" id="reset-btn">Reset</button>
                 </div>
             </div>
 
-            <div class="twr-chart-container">
-                <h2>Results</h2>
-                <div id="results-container" class="results-hidden">
-                    <div id="twr-chart-wrapper">
-                        <canvas id="twr-chart"></canvas>
-                    </div>
-                </div>
+            <!-- Results Panel -->
+            <div class="twr-panel">
+                <h2>📈 Results</h2>
+
                 <div id="results-placeholder" class="results-placeholder">
-                    <p>Enter your portfolio data and click Calculate</p>
+                    <div class="placeholder-icon">📊</div>
+                    <p>Enter your portfolio data and click Calculate to see your time-weighted returns</p>
+                </div>
+
+                <div id="twr-chart-wrapper">
+                    <canvas id="twr-chart"></canvas>
+                    <div class="result-stats" id="result-stats">
+                        <!-- Stats populated by JS -->
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="assets/niche.js"></script>
-    <script src="assets/twr-calculator.js"></script>
+    <script>
+        // Theme toggle
+        const themeToggle = document.getElementById('guide-theme-toggle');
+        const html = document.documentElement;
+
+        const savedTheme = localStorage.getItem('theme') || 'frappe';
+        html.setAttribute('data-theme', savedTheme);
+
+        function updateTogglePosition() {
+            const slider = document.querySelector('.guide-theme-slider');
+            if (slider) {
+                slider.classList.toggle('light-mode', html.getAttribute('data-theme') === 'latte');
+            }
+        }
+        updateTogglePosition();
+
+        themeToggle.addEventListener('click', () => {
+            const newTheme = html.getAttribute('data-theme') === 'frappe' ? 'latte' : 'frappe';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateTogglePosition();
+        });
+
+        // Cash flow management
+        let cashFlowCount = 0;
+        const container = document.getElementById('cash-flows-container');
+        const addBtn = document.getElementById('add-flow-btn');
+
+        function addCashFlow() {
+            cashFlowCount++;
+            const row = document.createElement('div');
+            row.className = 'cash-flow-row';
+            row.innerHTML = `
+                <input type="date" placeholder="Date" />
+                <input type="number" placeholder="Amount (+/-)" step="0.01" />
+                <button class="remove-flow-btn" onclick="this.parentElement.remove()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 6L6 18M6 6l12 12" />
+                    </svg>
+                </button>
+            `;
+            container.appendChild(row);
+        }
+
+        addBtn.addEventListener('click', addCashFlow);
+
+        // Reset
+        document.getElementById('reset-btn').addEventListener('click', () => {
+            document.getElementById('start-date').value = '';
+            document.getElementById('start-balance').value = '';
+            container.innerHTML = '';
+            document.getElementById('results-placeholder').style.display = 'flex';
+            document.getElementById('twr-chart-wrapper').classList.remove('visible');
+        });
+
+        // Calculate (simplified demo)
+        let chart = null;
+        document.getElementById('calculate-btn').addEventListener('click', () => {
+            const startBalance = parseFloat(document.getElementById('start-balance').value) || 10000;
+            
+            // Demo: generate sample data
+            const labels = ['Start', 'Month 1', 'Month 2', 'Month 3', 'Month 4', 'Month 5', 'End'];
+            const data = [startBalance];
+            for (let i = 1; i < labels.length; i++) {
+                const change = (Math.random() - 0.4) * 0.08 * data[i-1];
+                data.push(data[i-1] + change);
+            }
+
+            const totalReturn = ((data[data.length-1] - startBalance) / startBalance * 100).toFixed(2);
+
+            document.getElementById('results-placeholder').style.display = 'none';
+            document.getElementById('twr-chart-wrapper').classList.add('visible');
+
+            // Stats
+            document.getElementById('result-stats').innerHTML = `
+                <div class="stat-card">
+                    <div class="stat-value ${totalReturn < 0 ? 'negative' : ''}">${totalReturn}%</div>
+                    <div class="stat-label">Total TWR</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">$${data[data.length-1].toFixed(2)}</div>
+                    <div class="stat-label">Final Value</div>
+                </div>
+            `;
+
+            // Chart
+            const ctx = document.getElementById('twr-chart').getContext('2d');
+            const isDark = html.getAttribute('data-theme') === 'frappe';
+            
+            if (chart) chart.destroy();
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels,
+                    datasets: [{
+                        label: 'Portfolio Value',
+                        data,
+                        borderColor: isDark ? '#ca9ee6' : '#8839ef',
+                        backgroundColor: isDark ? 'rgba(202, 158, 230, 0.1)' : 'rgba(136, 57, 239, 0.1)',
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 6,
+                        pointHoverRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            grid: { color: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)' },
+                            ticks: { color: isDark ? '#c6d0f5' : '#4c4f69' }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: isDark ? '#c6d0f5' : '#4c4f69' }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

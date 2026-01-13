@@ -4,8 +4,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enabling Discord Rich Presence in Flatpak | h0tp-ftw</title>
+    <title>Discord Rich Presence on Linux Flatpak Guide | h0tp-ftw</title>
+    <meta name="description" content="Fix Discord Rich Presence (RPC) not working with Flatpak apps like Anki, VS Code, and more. Complete troubleshooting guide.">
     <link rel="stylesheet" href="assets/guide-breathtaking.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Custom Styles for Command Blocks */
+        .cmd-block {
+            background: #111;
+            border-radius: 12px;
+            padding: 1.25rem;
+            font-family: 'Fira Code', monospace;
+            color: #d4d4d4;
+            margin: 1rem 0;
+            border: 1px solid #333;
+            position: relative;
+            overflow-x: auto;
+        }
+
+        .cmd-line {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .cmd-line:last-child {
+            margin-bottom: 0;
+        }
+
+        .cmd-prompt {
+            color: var(--ctp-green);
+            margin-right: 0.5rem;
+            user-select: none;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            color: #d4d4d4;
+            padding: 4px;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            opacity: 0;
+        }
+
+        .cmd-block:hover .copy-btn {
+            opacity: 1;
+        }
+
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+        }
+
+        .copy-btn.copied {
+            background: var(--ctp-green);
+            color: black;
+            border-color: var(--ctp-green);
+        }
+
+        /* Tabs for different methods */
+        .method-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .method-tab {
+            padding: 0.75rem 1.5rem;
+            background: rgba(var(--ctp-surface0-rgb, 65, 69, 89), 0.5);
+            border: 2px solid var(--ctp-surface1);
+            border-radius: 50px;
+            color: var(--ctp-subtext1);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .method-tab:hover {
+            border-color: var(--ctp-mauve);
+            color: var(--ctp-text);
+        }
+
+        .method-tab.active {
+            background: var(--ctp-mauve);
+            color: var(--ctp-base);
+            border-color: var(--ctp-mauve);
+        }
+
+        /* Step Circles */
+        .step-item {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .step-marker {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--ctp-surface1);
+            color: var(--ctp-text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            border: 2px solid var(--ctp-surface2);
+        }
+
+        .step-content {
+            flex-grow: 1;
+        }
+
+        .step-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--ctp-text);
+        }
+    </style>
 </head>
 
 <body data-theme="frappe">
@@ -24,98 +153,242 @@
             </svg>
             <svg class="guide-slider-icon sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                 <circle cx="12" cy="12" r="5" />
-                <path
-                    d="M12 1v2m0 18v2M23 12h-2M3 12H1m19.071-7.071l-1.414 1.414M5.343 18.657l-1.414 1.414m15.142 0l-1.414-1.414M5.343 5.343L3.929 3.929" />
+                <path d="M12 1v2m0 18v2M23 12h-2M3 12H1m19.071-7.071l-1.414 1.414M5.343 18.657l-1.414 1.414m15.142 0l-1.414-1.414M5.343 5.343L3.929 3.929" />
             </svg>
         </div>
     </button>
 
     <!-- Back Button -->
     <div class="niche-back-nav">
-        <a href="../index.html#niche-projects" class="back-btn">
+        <a href="index.html" class="back-btn">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M15 18l-6-6 6-6" />
             </svg>
-            Back to Portfolio
+            Back to Projects
         </a>
     </div>
 
     <!-- Main Content -->
     <div class="niche-container">
+        <!-- Hero -->
         <header class="niche-header">
-            <h1>🎮 Enabling Discord Rich Presence in Flatpak</h1>
-            <p class="niche-subtitle">A guide to making Rich Presence work for your sandboxed applications.</p>
+            <div style="font-size: 4rem; margin-bottom: 1rem;">🎮</div>
+            <h1>Universal Rich Presence Fix</h1>
+            <p class="niche-subtitle">
+                Enable Discord RPC for <strong>ANY</strong> Flatpak application (VS Code, Minecraft, etc.).
+                The ultimate guide to breaking out of the sandbox.
+            </p>
         </header>
 
+        <!-- Warning Section -->
         <div class="guide-content">
             <section>
-                <h2>What is Rich Presence?</h2>
-                <p>Discord's Rich Presence is a feature that allows you to show the game you're playing, and other cool
-                    details, in your Discord status. However, this can be tricky to set up for applications installed
-                    via Flatpak due to sandboxing.</p>
+                <h2>⚠️ How It Works</h2>
+                <div class="alert alert-info">
+                    <strong>The Problem:</strong> Flatpak applications are sandboxed and cannot see the "socket" that Discord uses to communicate.
+                </div>
+                <p style="margin-top: 1rem; line-height: 1.7; color: var(--ctp-subtext0);">
+                    To fix this, we need to ensure the <strong>Host</strong> (Discord/Vesktop) creates the socket where standard apps expect it, 
+                    and the <strong>Client</strong> (Your App) has permission to touch it.
+                </p>
+            </section>
+        </div>
+
+        <!-- Solutions -->
+        <div class="guide-content">
+            <h2 style="text-align: center; margin-bottom: 2rem;">🛠️ Troubleshooting Steps</h2>
+            
+            <!-- App Version Switcher -->
+            <div class="app-switcher-container" style="display: flex; justify-content: center; margin-bottom: 3rem;">
+                <div class="app-switcher" style="background: var(--ctp-surface0); padding: 0.5rem; border-radius: 12px; border: 2px solid var(--ctp-surface1); display: flex; gap: 0.5rem;">
+                    <button class="switcher-btn active" data-app="discord" onclick="switchApp('discord')" style="padding: 0.5rem 1.5rem; border-radius: 8px; border: none; background: var(--ctp-mauve); color: var(--ctp-base); font-weight: 700; cursor: pointer; transition: all 0.3s ease;">
+                        Discord Public
+                    </button>
+                    <button class="switcher-btn" data-app="vesktop" onclick="switchApp('vesktop')" style="padding: 0.5rem 1.5rem; border-radius: 8px; border: none; background: transparent; color: var(--ctp-subtext0); font-weight: 700; cursor: pointer; transition: all 0.3s ease;">
+                        Vesktop
+                    </button>
+                </div>
+            </div>
+
+            <section>
+                <h3>Step 1: Symlink Fix (Global Fix)</h3>
+                <p>This creates a permanent link so the Host exposes the socket globally.</p>
+
+                <div class="step-item">
+                    <div class="step-marker">1</div>
+                    <div class="step-content">
+                        <div class="step-title">Run Setup Commands</div>
+                        <p>Open your terminal and run this to link the Host path to the standard path:</p>
+                        <div class="cmd-block">
+                            <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                            </button>
+                            <span class="cmd-line"><span class="cmd-prompt">$</span>ln -sf $XDG_RUNTIME_DIR/{<span class="app-path">app/com.discordapp.Discord</span>,}/discord-ipc-0</span>
+                            <span class="cmd-line"><span class="cmd-prompt">$</span>mkdir -p ~/.config/user-tmpfiles.d</span>
+                            <span class="cmd-line"><span class="cmd-prompt">$</span>echo 'L %t/discord-ipc-0 - - - - <span class="app-path">app/com.discordapp.Discord</span>/discord-ipc-0' > ~/.config/user-tmpfiles.d/discord-rpc.conf</span>
+                            <span class="cmd-line"><span class="cmd-prompt">$</span>systemctl --user enable --now systemd-tmpfiles-setup.service</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-marker">2</div>
+                    <div class="step-content">
+                        <div class="step-title">Restart Your Device</div>
+                        <p>A full restart is required for the systemd changes to properly take effect.</p>
+                    </div>
+                </div>
             </section>
 
             <section>
-                <h2>Why Flatpak makes this tricky</h2>
-                <p>Flatpak applications run in a sandboxed environment, which means they are isolated from the rest of
-                    your system. This is great for security, but it can prevent applications from communicating with
-                    Discord to set up Rich Presence.</p>
+                <h3>Step 2: Flatseal Permissions</h3>
+                <p>If Step 1 didn't work, you need to explicitly grant filesystem permissions using <strong>Flatseal</strong>.</p>
+
+                <div class="step-item">
+                    <div class="step-marker">A</div>
+                    <div class="step-content">
+                        <div class="step-title">For The Host (Discord/Vesktop)</div>
+                        <p>The host app needs access to <strong>both</strong> its own folder (to create sockets) and the shared path.</p>
+                        <div class="cmd-block">
+                             <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                            </button>
+                           <span class="cmd-line">xdg-run/<span class="app-path" style="color: var(--ctp-pink);">app/com.discordapp.Discord</span>:create</span>
+                           <span class="cmd-line">xdg-run/discord-ipc-0:create</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-marker">B</div>
+                    <div class="step-content">
+                        <div class="step-title">For The Client (Your App)</div>
+                        <p>Your target app (e.g., VS Code, Prism Launcher, Anki) only needs access to the <strong>socket</strong>:</p>
+                        <div class="cmd-block">
+                             <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                            </button>
+                           <span class="cmd-line">xdg-run/discord-ipc-0</span>
+                        </div>
+                    </div>
+                </div>
             </section>
 
             <section>
-                <h2>Installation Steps</h2>
-                <p>To get Rich Presence working, you need to grant the Flatpak application permission to access the
-                    Discord RPC socket. This can be done using Flatseal or the command line.</p>
-                <h3>Using Flatseal</h3>
-                <p>Flatseal is a graphical utility to manage Flatpak permissions. Find your application in Flatseal, and
-                    under "Filesystem", add <code>xdg-run/discord-ipc-0</code> to the "Other files" section.</p>
-                <h3>Using the Command Line</h3>
-                <p>You can also grant the permission using the command line:</p>
-                <pre><code>flatpak override --user --filesystem=xdg-run/discord-ipc-0 com.example.AppName</code></pre>
-            </section>
+                <h3>Step 3: Advanced Debugging</h3>
+                <p>Still not working? Let's dig deeper to find the root cause.</p>
 
-            <section>
-                <h2>Configuration</h2>
-                <p>Once the permission is granted, you may need to restart the application and Discord for the changes
-                    to take effect. In some cases, you may also need to enable Rich Presence in the application's
-                    settings.</p>
-            </section>
+                <div class="step-item">
+                    <div class="step-marker">1</div>
+                    <div class="step-content">
+                        <div class="step-title">Reset & Test</div>
+                        <p>Try removing the existing IPC file to clear any bad states:</p>
+                        <div class="cmd-block">
+                             <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                            </button>
+                            <span class="cmd-line"><span class="cmd-prompt">$</span>rm $XDG_RUNTIME_DIR/discord-ipc-0</span>
+                        </div>
+                    </div>
+                </div>
 
-            <section>
-                <h2>Testing Your Setup</h2>
-                <p>After following the steps above, launch the application and check your Discord profile. If everything
-                    is working correctly, you should see the Rich Presence status.</p>
+                <div class="step-item">
+                    <div class="step-marker">2</div>
+                    <div class="step-content">
+                        <div class="step-title">Run from Terminal</div>
+                        <p>Launch both apps from the terminal to see live logs. Replace <code>com.example.App</code> with your app's ID.</p>
+                        <div class="cmd-block">
+                             <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                            </button>
+                            <span class="cmd-line"><span class="cmd-prompt">$</span>flatpak run <span style="color: var(--ctp-pink);">com.example.App</span></span>
+                            <span class="cmd-line"><span class="cmd-prompt">$</span>flatpak run <span class="app-id">com.discordapp.Discord</span></span>
+                        </div>
+                        <p>Look for permission denied errors regarding <code>xdg-run</code> or <code>discord-ipc-0</code>.</p>
+                    </div>
+                </div>
             </section>
         </div>
     </div>
 
     <script>
-        // Theme toggle functionality
+        // Data for Apps
+        const appData = {
+            discord: {
+                path: 'app/com.discordapp.Discord',
+                id: 'com.discordapp.Discord'
+            },
+            vesktop: {
+                path: '.flatpak/dev.vencord.Vesktop',
+                id: 'dev.vencord.Vesktop'
+            }
+        };
+
+        // App Switcher Logic
+        function switchApp(appKey) {
+            // Update buttons
+            document.querySelectorAll('.switcher-btn').forEach(btn => {
+                if (btn.dataset.app === appKey) {
+                    btn.classList.add('active');
+                    btn.style.background = 'var(--ctp-mauve)';
+                    btn.style.color = 'var(--ctp-base)';
+                } else {
+                    btn.classList.remove('active');
+                    btn.style.background = 'transparent';
+                    btn.style.color = 'var(--ctp-subtext0)';
+                }
+            });
+
+            // Update content
+            const data = appData[appKey];
+            document.querySelectorAll('.app-path').forEach(el => el.textContent = data.path);
+            document.querySelectorAll('.app-id').forEach(el => el.textContent = data.id);
+        }
+
+        // Copy Code Logic
+        function copyCode(btn) {
+            const block = btn.closest('.cmd-block');
+            const lines = block.querySelectorAll('.cmd-line');
+            let textToCopy = '';
+
+            lines.forEach(line => {
+                // clone text safely excluding the prompt span if possible, or just replacing it
+                let text = line.innerText;
+                if (text.startsWith('$')) {
+                    text = text.substring(1).trim(); // remove prompt
+                }
+                textToCopy += text + '\n';
+            });
+
+            navigator.clipboard.writeText(textToCopy.trim()).then(() => {
+                const originalHTML = btn.innerHTML;
+                btn.innerHTML = '✓';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.innerHTML = originalHTML;
+                    btn.classList.remove('copied');
+                }, 2000);
+            });
+        }
+        
+        // Theme toggle logic
         const themeToggle = document.getElementById('guide-theme-toggle');
         const html = document.documentElement;
-
         const savedTheme = localStorage.getItem('theme') || 'frappe';
         html.setAttribute('data-theme', savedTheme);
 
         function updateTogglePosition() {
-            const currentTheme = html.getAttribute('data-theme');
             const slider = document.querySelector('.guide-theme-slider');
-            if (slider) {
-                slider.classList.toggle('light-mode', currentTheme === 'latte');
-            }
+            if (slider) slider.classList.toggle('light-mode', html.getAttribute('data-theme') === 'latte');
         }
-
         updateTogglePosition();
 
         themeToggle.addEventListener('click', () => {
-            const currentTheme = html.getAttribute('data-theme');
-            const newTheme = currentTheme === 'frappe' ? 'latte' : 'frappe';
-
+            const newTheme = html.getAttribute('data-theme') === 'frappe' ? 'latte' : 'frappe';
             html.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
             updateTogglePosition();
         });
     </script>
 </body>
-
 </html>

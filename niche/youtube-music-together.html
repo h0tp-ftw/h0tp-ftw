@@ -4,8 +4,704 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listening to Music Together in YouTube Music | h0tp-ftw</title>
+    <title>YouTube Music Together with Pear Desktop | h0tp-ftw</title>
+    <meta name="description" content="Listen to YouTube Music with friends in real-time using Pear Desktop's Music Together addon. Complete setup guide.">
     <link rel="stylesheet" href="assets/guide-breathtaking.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================
+           MUSIC TOGETHER SPECIFIC STYLES
+           ============================================ */
+
+        /* Hero Section */
+        .hero-section {
+            text-align: center;
+            padding: 4rem 2rem;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, rgba(202, 158, 230, 0.2), rgba(244, 184, 228, 0.2));
+            border: 1px solid var(--ctp-mauve);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--ctp-mauve);
+            margin-bottom: 2rem;
+            animation: pulse-glow 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 10px rgba(202, 158, 230, 0.3); }
+            50% { box-shadow: 0 0 25px rgba(202, 158, 230, 0.5); }
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--ctp-text), var(--ctp-mauve), var(--ctp-pink), var(--ctp-blue));
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient-flow 6s ease infinite;
+        }
+
+        @keyframes gradient-flow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hero-subtitle {
+            font-size: 1.4rem;
+            color: var(--ctp-subtext1);
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.8;
+        }
+
+        /* App Showcase */
+        .app-showcase {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .app-icon {
+            width: 100px;
+            height: 100px;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            transition: all 0.4s ease;
+            position: relative;
+            cursor: default;
+        }
+
+        .app-icon.pear {
+            background: linear-gradient(135deg, #94d82d, #5c940d);
+            box-shadow: 0 8px 32px rgba(148, 216, 45, 0.3);
+        }
+
+        .app-icon.youtube-music {
+            background: linear-gradient(135deg, #ff0000, #cc0000);
+            box-shadow: 0 8px 32px rgba(255, 0, 0, 0.3);
+        }
+
+        .app-icon:hover {
+            transform: translateY(-8px) scale(1.1);
+        }
+
+        .connection-line {
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--ctp-green), var(--ctp-blue), var(--ctp-mauve));
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .connection-line::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+            animation: connection-pulse 2s linear infinite;
+        }
+
+        @keyframes connection-pulse {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        /* Feature Cards */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+
+        .feature-card {
+            background: rgba(65, 69, 89, 0.5);
+            backdrop-filter: blur(20px);
+            border: 2px solid var(--ctp-surface1);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+
+        .feature-card:hover {
+            border-color: var(--ctp-mauve);
+            transform: translateY(-6px);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--ctp-text);
+            margin-bottom: 0.75rem;
+        }
+
+        .feature-desc {
+            font-size: 0.95rem;
+            color: var(--ctp-subtext1);
+            line-height: 1.6;
+        }
+
+        /* Download Section */
+        .download-section {
+            background: linear-gradient(135deg, rgba(148, 216, 45, 0.15), rgba(166, 209, 137, 0.1));
+            border: 2px solid var(--ctp-green);
+            border-radius: 24px;
+            padding: 3rem;
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .download-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--ctp-text);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        .download-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--ctp-green), var(--ctp-teal));
+            color: var(--ctp-base);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 24px rgba(166, 209, 137, 0.3);
+        }
+
+        .download-btn:hover {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 12px 32px rgba(166, 209, 137, 0.4);
+        }
+
+        .download-btn.secondary {
+            background: var(--ctp-surface0);
+            color: var(--ctp-text);
+            border: 2px solid var(--ctp-surface1);
+            box-shadow: none;
+        }
+
+        .download-btn.secondary:hover {
+            border-color: var(--ctp-mauve);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Platform Badges */
+        .platform-badges {
+            display: flex;
+            gap: 0.75rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .platform-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--ctp-surface0);
+            border: 1px solid var(--ctp-surface1);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: var(--ctp-subtext1);
+        }
+
+        /* Step Cards */
+        .step-card {
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+            margin: 2.5rem 0;
+            padding: 2rem;
+            background: rgba(65, 69, 89, 0.4);
+            border-radius: 20px;
+            border: 2px solid var(--ctp-surface1);
+            transition: all 0.3s ease;
+        }
+
+        .step-card:hover {
+            border-color: var(--ctp-mauve);
+            transform: translateX(8px);
+        }
+
+        .step-number {
+            flex-shrink: 0;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--ctp-mauve), var(--ctp-pink));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--ctp-base);
+            box-shadow: 0 8px 24px rgba(202, 158, 230, 0.3);
+        }
+
+        .step-content {
+            flex-grow: 1;
+        }
+
+        .step-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--ctp-text);
+            margin-bottom: 0.75rem;
+        }
+
+        .step-desc {
+            color: var(--ctp-subtext1);
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        /* UI Screenshot Mockups */
+        .ui-mockup {
+            display: inline-flex;
+            flex-direction: column;
+            background: #1f1f1f;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 1.5rem 0;
+            border: 1px solid #3a3a3a;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .ui-mockup-header {
+            background: #2a2a2a;
+            padding: 0.75rem 1rem;
+            font-size: 0.85rem;
+            color: #888;
+            border-bottom: 1px solid #3a3a3a;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .ui-mockup-content {
+            padding: 0;
+        }
+
+        .ui-menu-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.25rem;
+            color: #e0e0e0;
+            font-size: 0.95rem;
+            border-bottom: 1px solid #3a3a3a;
+            transition: background 0.2s ease;
+        }
+
+        .ui-menu-item:last-child {
+            border-bottom: none;
+        }
+
+        .ui-menu-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .ui-menu-item.highlighted {
+            background: rgba(202, 158, 230, 0.15);
+            border-left: 3px solid var(--ctp-mauve);
+        }
+
+        .ui-menu-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #aaa;
+        }
+
+        .ui-menu-subtext {
+            font-size: 0.8rem;
+            color: #666;
+            padding: 0.5rem 1.25rem 1rem;
+        }
+
+        /* Icon Button Display */
+        .icon-display {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            background: #2a2a2a;
+            border-radius: 50%;
+            margin: 0 0.5rem;
+            vertical-align: middle;
+            border: 2px solid #3a3a3a;
+        }
+
+        .icon-display svg {
+            width: 24px;
+            height: 24px;
+            color: #e0e0e0;
+        }
+
+        /* Visual Walkthrough */
+        .visual-walkthrough {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .walkthrough-item {
+            background: var(--ctp-surface0);
+            border: 2px solid var(--ctp-surface1);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .walkthrough-item:hover {
+            border-color: var(--ctp-blue);
+        }
+
+        .walkthrough-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .walkthrough-label {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--ctp-text);
+        }
+
+        /* Flow Diagram */
+        .flow-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+            padding: 2rem;
+            background: var(--ctp-surface0);
+            border-radius: 16px;
+            border: 2px solid var(--ctp-surface1);
+        }
+
+        .flow-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1.5rem;
+            background: var(--ctp-mantle);
+            border-radius: 16px;
+            min-width: 140px;
+            text-align: center;
+        }
+
+        .flow-step-icon {
+            font-size: 2.5rem;
+        }
+
+        .flow-step-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--ctp-text);
+        }
+
+        .flow-arrow {
+            font-size: 2rem;
+            color: var(--ctp-mauve);
+        }
+
+        /* Comparison Section */
+        .comparison-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 2rem 0;
+            border-radius: 16px;
+            overflow: hidden;
+            background: var(--ctp-surface0);
+            border: 2px solid var(--ctp-surface1);
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 1.25rem 1.5rem;
+            text-align: left;
+            border-bottom: 1px solid var(--ctp-surface1);
+        }
+
+        .comparison-table th {
+            background: var(--ctp-mantle);
+            color: var(--ctp-text);
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .comparison-table td {
+            color: var(--ctp-subtext1);
+        }
+
+        .check-icon {
+            color: var(--ctp-green);
+            font-size: 1.25rem;
+        }
+
+        .cross-icon {
+            color: var(--ctp-red);
+            font-size: 1.25rem;
+        }
+
+        /* Interactive Demo Section */
+        .demo-section {
+            background: linear-gradient(135deg, rgba(140, 170, 238, 0.15), rgba(133, 193, 220, 0.1));
+            border: 2px solid var(--ctp-blue);
+            border-radius: 24px;
+            padding: 3rem;
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .demo-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 3rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .user-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--ctp-mauve), var(--ctp-pink));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            position: relative;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .user-avatar.host::after {
+            content: '👑';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            font-size: 1.5rem;
+        }
+
+        .user-avatar.listener {
+            background: linear-gradient(135deg, var(--ctp-blue), var(--ctp-sapphire));
+        }
+
+        .music-wave {
+            display: flex;
+            align-items: end;
+            gap: 4px;
+            height: 40px;
+        }
+
+        .wave-bar {
+            width: 6px;
+            background: linear-gradient(0deg, var(--ctp-green), var(--ctp-teal));
+            border-radius: 3px;
+            animation: wave-animation 1s ease-in-out infinite;
+        }
+
+        .wave-bar:nth-child(1) { height: 60%; animation-delay: 0s; }
+        .wave-bar:nth-child(2) { height: 100%; animation-delay: 0.15s; }
+        .wave-bar:nth-child(3) { height: 80%; animation-delay: 0.3s; }
+        .wave-bar:nth-child(4) { height: 100%; animation-delay: 0.45s; }
+        .wave-bar:nth-child(5) { height: 40%; animation-delay: 0.6s; }
+
+        @keyframes wave-animation {
+            0%, 100% { transform: scaleY(1); }
+            50% { transform: scaleY(0.5); }
+        }
+
+        /* Code Block Styling */
+        .settings-path {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            background: var(--ctp-mantle);
+            border: 1px solid var(--ctp-surface1);
+            border-radius: 8px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            color: var(--ctp-green);
+            margin: 0.5rem 0;
+        }
+
+        /* Key Display */
+        .key-display {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--ctp-mauve);
+            color: var(--ctp-base);
+            border-radius: 8px;
+            font-family: 'Fira Code', monospace;
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 0.25rem;
+        }
+
+        /* FAQ Accordion */
+        .faq-item {
+            background: var(--ctp-surface0);
+            border: 2px solid var(--ctp-surface1);
+            border-radius: 16px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            border-color: var(--ctp-mauve);
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 1.5rem 2rem;
+            background: transparent;
+            border: none;
+            text-align: left;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--ctp-text);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: inherit;
+        }
+
+        .faq-question:hover {
+            color: var(--ctp-mauve);
+        }
+
+        .faq-icon {
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            padding: 0 2rem 1.5rem;
+            color: var(--ctp-subtext1);
+            line-height: 1.8;
+            display: none;
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .app-showcase {
+                gap: 1rem;
+            }
+
+            .app-icon {
+                width: 70px;
+                height: 70px;
+                font-size: 2rem;
+            }
+
+            .connection-line {
+                width: 40px;
+            }
+
+            .step-card {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .demo-visual {
+                gap: 1.5rem;
+            }
+
+            .flow-diagram {
+                flex-direction: column;
+            }
+
+            .flow-arrow {
+                transform: rotate(90deg);
+            }
+        }
+    </style>
 </head>
 
 <body data-theme="frappe">
@@ -24,81 +720,474 @@
             </svg>
             <svg class="guide-slider-icon sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                 <circle cx="12" cy="12" r="5" />
-                <path
-                    d="M12 1v2m0 18v2M23 12h-2M3 12H1m19.071-7.071l-1.414 1.414M5.343 18.657l-1.414 1.414m15.142 0l-1.414-1.414M5.343 5.343L3.929 3.929" />
+                <path d="M12 1v2m0 18v2M23 12h-2M3 12H1m19.071-7.071l-1.414 1.414M5.343 18.657l-1.414 1.414m15.142 0l-1.414-1.414M5.343 5.343L3.929 3.929" />
             </svg>
         </div>
     </button>
 
     <!-- Back Button -->
     <div class="niche-back-nav">
-        <a href="../index.html#niche-projects" class="back-btn">
+        <a href="index.html" class="back-btn">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M15 18l-6-6 6-6" />
             </svg>
-            Back to Portfolio
+            Back to Projects
         </a>
     </div>
 
     <!-- Main Content -->
     <div class="niche-container">
-        <header class="niche-header">
-            <h1>🎵 Listening to Music Together in YouTube Music</h1>
-            <p class="niche-subtitle">A step-by-step guide to setting up shared music listening sessions.</p>
-        </header>
+        <!-- Hero Section -->
+        <div class="hero-section">
+            <div class="hero-badge">
+                <span>🎧</span> Powered by Pear Desktop
+            </div>
+            <h1 class="hero-title">Listen Together</h1>
+            <p class="hero-subtitle">
+                Use Pear Desktop to listen with friends!
+            </p>
+
+            <div class="app-showcase">
+                <div class="app-icon pear" title="Pear Desktop">🍐</div>
+                <div class="connection-line"></div>
+                <div class="app-icon youtube-music" title="YouTube Music">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="white">
+                        <path d="M12 0C5.376 0 0 5.376 0 12s5.376 12 12 12 12-5.376 12-12S18.624 0 12 0zm0 19.104c-3.924 0-7.104-3.18-7.104-7.104S8.076 4.896 12 4.896s7.104 3.18 7.104 7.104-3.18 7.104-7.104 7.104zm0-13.332c-3.432 0-6.228 2.796-6.228 6.228S8.568 18.228 12 18.228s6.228-2.796 6.228-6.228S15.432 5.772 12 5.772zM9.684 15.54V8.46L15.816 12l-6.132 3.54z"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- Download Section -->
+        <div class="download-section">
+            <div class="download-title">
+                <span>🍐</span> Get Pear Desktop
+            </div>
+            <p style="color: var(--ctp-subtext1); line-height: 1.8; max-width: 600px; margin: 0 auto;">
+                An unofficial, feature-rich desktop app for YouTube Music with plugin support, 
+                custom themes, ad blocking, and much more.
+            </p>
+            <div class="download-buttons">
+                <a href="https://github.com/pear-devs/pear-desktop/releases/latest" class="download-btn" target="_blank" rel="noopener">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                    </svg>
+                    Download Latest Release
+                </a>
+                <a href="https://github.com/pear-devs/pear-desktop" class="download-btn secondary" target="_blank" rel="noopener">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                    View on GitHub
+                </a>
+            </div>
+            <div class="platform-badges">
+                <span class="platform-badge">🪟 Windows</span>
+                <span class="platform-badge">🍎 macOS</span>
+                <span class="platform-badge">🐧 Linux</span>
+                <span class="platform-badge">📦 AUR</span>
+            </div>
+        </div>
 
         <div class="guide-content">
+            <!-- How It Works Flow -->
             <section>
-                <h2>Introduction</h2>
-                <p>YouTube Music doesn't have a native "listening party" feature like Spotify, but with a little
-                    creativity, you can still enjoy music with your friends in real-time. This guide will walk you
-                    through the best methods to achieve this.</p>
-            </section>
+            <h2>🔄 How It Works</h2>
+            <p>The flow is simple — host a session, share your key, and listen together!</p>
 
-            <section>
-                <h2>Prerequisites</h2>
-                <p>Before you begin, make sure you and your friends have the following:</p>
-                <ul>
-                    <li>A YouTube Music Premium subscription (for uninterrupted listening).</li>
-                    <li>A voice chat application like Discord or Telegram.</li>
-                    <li>A stable internet connection.</li>
-                </ul>
-            </section>
+            <div class="flow-diagram">
+                <div class="flow-step">
+                    <div class="flow-step-icon">👑</div>
+                    <div class="flow-step-label">Host starts session</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div class="flow-step-icon">🔑</div>
+                    <div class="flow-step-label">Copy Host ID</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div class="flow-step-icon">📤</div>
+                    <div class="flow-step-label">Share with friends</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div class="flow-step-icon">🎵</div>
+                    <div class="flow-step-label">Listen together!</div>
+                </div>
+            </div>
+        </section>
 
-            <section>
-                <h2>Step-by-Step Setup</h2>
-                <p>The most reliable method is to use a shared playlist and a voice call to synchronize playback.</p>
-                <h3>1. Create a Shared Playlist</h3>
-                <p>First, create a new playlist in YouTube Music and add the songs you want to listen to. Then, share
-                    the playlist with your friends.</p>
-                <h3>2. Start a Voice Call</h3>
-                <p>Get everyone on a voice call in your preferred application. This is crucial for communication and
-                    synchronization.</p>
-                <h3>3. Synchronize Playback</h3>
-                <p>Designate one person as the "DJ". The DJ will count down ("3, 2, 1, play!") and everyone will press
-                    the play button at the same time. This simple method is surprisingly effective.</p>
-            </section>
+        <!-- Setup Guide -->
+        <section>
+            <h2>🚀 Getting Started</h2>
+            <p>Follow these steps to set up Music Together and start listening with friends!</p>
 
-            <section>
-                <h2>Troubleshooting</h2>
-                <p>If you run into issues, here are a few things to try:</p>
-                <ul>
-                    <li><strong>Playback out of sync:</strong> Pause the music and re-synchronize using the countdown
-                        method.</li>
-                    <li><strong>Buffering issues:</strong> Check your internet connection. Lowering the audio quality in
-                        YouTube Music settings can also help.</li>
-                </ul>
-            </section>
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <div class="step-title">Install Pear Desktop</div>
+                    <div class="step-desc">
+                        Download and install Pear Desktop from the <a href="https://github.com/pear-devs/pear-desktop/releases/latest" target="_blank">official releases page</a>. 
+                        Choose the appropriate version for your operating system (Windows, macOS, or Linux).
+                    </div>
+                </div>
+            </div>
 
-            <section>
-                <h2>Tips & Tricks</h2>
-                <p>Here are some extra tips to enhance your listening party:</p>
-                <ul>
-                    <li>Use a Discord bot to play music directly in a voice channel.</li>
-                    <li>Share your screen to show the current song and music video.</li>
-                    <li>Create a collaborative playlist and let everyone add songs.</li>
-                </ul>
-            </section>
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <div class="step-title">Enable the Music Together Plugin</div>
+                    <div class="step-desc">
+                        Open the settings menu and navigate to the <strong>Plugins</strong> section. 
+                        Find <code>Music Together</code> in the list and enable it.
+                    </div>
+                    <div class="settings-path">
+                        ⚙️ Settings → Plugins → Music Together → Enable
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <div class="step-title">Find the Music Together Icon</div>
+                    <div class="step-desc">
+                        Once enabled, look for the <strong>group icon</strong> 
+                        <span class="icon-display">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                            </svg>
+                        </span>
+                        in the <strong>top right corner</strong> of the app, to the left of your profile picture.
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <div class="step-title">Host or Join a Session</div>
+                    <div class="step-desc">
+                        Click the icon to open the Music Together menu. You'll see these options:
+                    </div>
+                    
+                    <div class="ui-mockup">
+                        <div class="ui-mockup-header">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                            </svg>
+                            Connected Users
+                        </div>
+                        <div class="ui-mockup-content">
+                            <div class="ui-menu-subtext">No connected users</div>
+                            <div class="ui-menu-item highlighted">
+                                <div class="ui-menu-icon">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M3.24 6.15C2.51 6.43 2 7.17 2 8v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2H8.3l8.26-3.34L15.88 1 3.24 6.15zM7 20c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm13-8h-2v-2h-2v2H4V8h16v4z"/>
+                                    </svg>
+                                </div>
+                                Music Together Host
+                            </div>
+                            <div class="ui-menu-item">
+                                <div class="ui-menu-icon">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                    </svg>
+                                </div>
+                                Join Music Together
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <p style="margin-top: 1rem; color: var(--ctp-subtext1);">
+                        <strong>To host:</strong> Click "Music Together Host" to start a new session.
+                        <br>
+                        <strong>To join:</strong> Click "Join Music Together" and enter a Host ID.
+                    </p>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">5</div>
+                <div class="step-content">
+                    <div class="step-title">Share Your Host ID</div>
+                    <div class="step-desc">
+                        After starting a session as host, you'll see this menu with your connected users and options:
+                    </div>
+                    
+                    <div class="ui-mockup">
+                        <div class="ui-mockup-header">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                            </svg>
+                            Connected Users
+                        </div>
+                        <div class="ui-mockup-content">
+                            <div class="ui-menu-item" style="padding: 0.75rem 1.25rem;">
+                                <div style="width: 28px; height: 28px; background: var(--ctp-mauve); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: var(--ctp-base); font-weight: 600;">G1</div>
+                            </div>
+                            <div class="ui-menu-item highlighted">
+                                <div class="ui-menu-icon">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                                    </svg>
+                                </div>
+                                Copy Host ID
+                            </div>
+                            <div class="ui-menu-item">
+                                <div class="ui-menu-icon">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
+                                    </svg>
+                                </div>
+                                Change Control Permission
+                            </div>
+                            <div class="ui-menu-item">
+                                <div class="ui-menu-icon">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                                    </svg>
+                                </div>
+                                Close Music Together
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <p style="margin-top: 1.5rem; color: var(--ctp-subtext1);">
+                        Click <strong>"Copy Host ID"</strong> to copy your unique session key, then share it with friends via Discord, Telegram, or any messaging app!
+                    </p>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">6</div>
+                <div class="step-content">
+                    <div class="step-title">Enjoy Music Together!</div>
+                    <div class="step-desc">
+                        Once your friends join using your Host ID, everyone stays perfectly in sync! 
+                        The host controls playback — play, pause, skip tracks, and manage the queue. 
+                        Friends can optionally be given control permissions through the menu.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Demo Visual -->
+        <div class="demo-section">
+            <h2 style="font-size: 2rem; font-weight: 700; color: var(--ctp-text); margin-bottom: 1rem;">
+                🎵 See It In Action
+            </h2>
+            <p style="color: var(--ctp-subtext1); max-width: 500px; margin: 0 auto 2rem;">
+                The host controls playback while listeners enjoy the synchronized experience.
+            </p>
+            <div class="demo-visual">
+                <div class="user-avatar host" title="Host">👤</div>
+                <div class="music-wave">
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                </div>
+                <div class="user-avatar listener" title="Listener">👤</div>
+                <div class="music-wave">
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                </div>
+                <div class="user-avatar listener" title="Listener">👤</div>
+            </div>
+            <p style="font-size: 0.9rem; color: var(--ctp-overlay1); margin-top: 1rem;">
+                👑 = Host &nbsp;&nbsp;|&nbsp;&nbsp; All listeners hear the same music in real-time
+            </p>
+        </div>
+
+        <!-- Comparison Section -->
+        <section>
+            <h2>📊 Why Pear Desktop?</h2>
+            <p>See how Music Together on Pear Desktop compares to other methods:</p>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Pear Desktop</th>
+                        <th>Manual Sync</th>
+                        <th>Screen Share</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Perfect Audio Sync</td>
+                        <td><span class="check-icon">✓</span></td>
+                        <td><span class="cross-icon">✗</span></td>
+                        <td><span class="check-icon">~</span></td>
+                    </tr>
+                    <tr>
+                        <td>Full Audio Quality</td>
+                        <td><span class="check-icon">✓</span></td>
+                        <td><span class="check-icon">✓</span></td>
+                        <td><span class="cross-icon">✗</span></td>
+                    </tr>
+                    <tr>
+                        <td>Easy to Set Up</td>
+                        <td><span class="check-icon">✓</span></td>
+                        <td><span class="cross-icon">✗</span></td>
+                        <td><span class="check-icon">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>No Voice App Needed</td>
+                        <td><span class="check-icon">✓</span></td>
+                        <td><span class="cross-icon">✗</span></td>
+                        <td><span class="cross-icon">✗</span></td>
+                    </tr>
+                    <tr>
+                        <td>Host-Controlled Queue</td>
+                        <td><span class="check-icon">✓</span></td>
+                        <td><span class="cross-icon">✗</span></td>
+                        <td><span class="check-icon">~</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Host vs Listener -->
+        <section>
+            <h2>👥 Host vs Listener Roles</h2>
+            <p>Understand what each role can do during a Music Together session:</p>
+
+            <div class="visual-walkthrough">
+                <div class="walkthrough-item">
+                    <div class="walkthrough-icon">👑</div>
+                    <div class="walkthrough-label">Host</div>
+                    <p style="font-size: 0.9rem; color: var(--ctp-subtext1); margin-top: 0.5rem;">
+                        Creates the room, controls playback, manages the queue, and can grant control permissions.
+                    </p>
+                </div>
+                <div class="walkthrough-item">
+                    <div class="walkthrough-icon">🎧</div>
+                    <div class="walkthrough-label">Listener</div>
+                    <p style="font-size: 0.9rem; color: var(--ctp-subtext1); margin-top: 0.5rem;">
+                        Joins with a Host ID, enjoys synced playback, and sees what's playing in real-time.
+                    </p>
+                </div>
+                <div class="walkthrough-item">
+                    <div class="walkthrough-icon">🔄</div>
+                    <div class="walkthrough-label">Auto-Sync</div>
+                    <p style="font-size: 0.9rem; color: var(--ctp-subtext1); margin-top: 0.5rem;">
+                        The plugin handles synchronization — no manual timing needed!
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Privacy Warning -->
+        <section>
+            <h2>⚠️ Privacy Notice</h2>
+            <div class="alert alert-warning">
+                <strong style="font-size: 1.1rem;">Your YouTube profile name is visible!</strong>
+                <p style="margin: 1rem 0 0; color: var(--ctp-subtext1); line-height: 1.8; font-size: 1rem;">
+                    When you join or host a Music Together session, your <strong>YouTube profile name</strong> (from your Google account) 
+                    will be visible to other participants. If you value your privacy, consider using an account with a nickname 
+                    or channel name rather than your real name.
+                </p>
+            </div>
+        </section>
+
+        <!-- Tips & Tricks -->
+        <section>
+            <h2>💡 Tips & Tricks</h2>
+            <ul>
+                <li><strong>Guest Controls:</strong> Hosts can use <strong>"Change Control Permission"</strong> to let trusted guests control playback too! This is great for shared DJ sessions.</li>
+                <li><strong>Explore Other Plugins:</strong> Pear Desktop offers many other plugins like Discord Rich Presence, lyrics display, ad blocking, and custom themes!</li>
+                <li><strong>Report Issues:</strong> Found a bug? Report it on the <a href="https://github.com/pear-devs/pear-desktop/issues" target="_blank">Pear Desktop GitHub Issues</a> page.</li>
+            </ul>
+        </section>
+
+        <!-- How It Works Technically -->
+        <section>
+            <h2>🔧 Under the Hood</h2>
+            <p>
+                Music Together uses <a href="https://peerjs.com/" target="_blank"><strong>PeerJS</strong></a> for peer-to-peer communication between users. 
+                This means audio synchronization happens directly between participants without needing a central server for the music stream itself, 
+                resulting in low latency and a smooth listening experience.
+            </p>
+        </section>
+
+        <!-- FAQ Section -->
+        <section>
+            <h2>❓ Frequently Asked Questions</h2>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                    Can listeners control the music?
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                    By default, only the host has playback control. However, the host can use <strong>"Change Control Permission"</strong> from the menu to grant control to trusted friends.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                    Where do I find the Music Together icon?
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                    Look for the <strong>group of people icon</strong> in the <strong>top right corner</strong> of the Pear Desktop window, to the left of your profile picture (user circle). Make sure the Music Together plugin is enabled in Settings → Plugins first!
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                    Is this official from Google/YouTube?
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                    <strong>No.</strong> Pear Desktop is an independent, community-driven project. It's not affiliated with or endorsed by Google, YouTube, or any of their subsidiaries.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                    Where can I get help or report bugs?
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                    Visit the <a href="https://github.com/pear-devs/pear-desktop/issues" target="_blank">GitHub Issues page</a> to report bugs or request features. The community and developers are active and responsive!
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                    Does it work on mobile?
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                    Pear Desktop is a <strong>desktop application</strong> for Windows, macOS, and Linux. There's no official mobile version currently available.
+                </div>
+            </div>
+        </section>
+        </div>
+
+        <!-- Final CTA -->
+        <div class="download-section" style="background: linear-gradient(135deg, rgba(202, 158, 230, 0.15), rgba(244, 184, 228, 0.1)); border-color: var(--ctp-mauve);">
+            <div class="download-title" style="font-size: 2.25rem;">
+                <span>🎉</span> Ready to Listen Together?
+            </div>
+            <p style="color: var(--ctp-subtext1); line-height: 1.8; max-width: 600px; margin: 0 auto;">
+                Download Pear Desktop, enable Music Together, and invite your friends for the ultimate synchronized listening experience!
+            </p>
+            <div class="download-buttons">
+                <a href="https://github.com/pear-devs/pear-desktop/releases/latest" class="download-btn" target="_blank" rel="noopener">
+                    🍐 Get Pear Desktop Now
+                </a>
+            </div>
         </div>
     </div>
 
@@ -109,6 +1198,7 @@
 
         const savedTheme = localStorage.getItem('theme') || 'frappe';
         html.setAttribute('data-theme', savedTheme);
+        document.body.setAttribute('data-theme', savedTheme);
 
         function updateTogglePosition() {
             const currentTheme = html.getAttribute('data-theme');
@@ -125,9 +1215,26 @@
             const newTheme = currentTheme === 'frappe' ? 'latte' : 'frappe';
 
             html.setAttribute('data-theme', newTheme);
+            document.body.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
             updateTogglePosition();
         });
+
+        // FAQ toggle functionality
+        function toggleFaq(button) {
+            const faqItem = button.parentElement;
+            const isActive = faqItem.classList.contains('active');
+            
+            // Close all FAQ items
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Open clicked item if it wasn't already active
+            if (!isActive) {
+                faqItem.classList.add('active');
+            }
+        }
     </script>
 </body>
 
