@@ -2909,6 +2909,20 @@ a:focus-visible,
   text-transform: uppercase;
   letter-spacing: 0.5px;
   align-self: flex-start;
+  margin-top: 1.5rem;
+}
+
+.niche-tile-content a {
+  color: var(--ctp-sky);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.niche-tile-content a:hover {
+  color: var(--ctp-sapphire);
+  text-decoration-thickness: 2px;
 }
 
 .niche-tile.hidden-niche-tile {

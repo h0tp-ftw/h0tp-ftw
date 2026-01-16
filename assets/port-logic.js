@@ -14,7 +14,7 @@ const ROTATING_WORDS = [
     'caffeinated',
     'sleep-deprived',
     'passionate',
-    'dedicated'
+    'dedicated',
 ];
 
 const PROJECT_LOGOS = {
