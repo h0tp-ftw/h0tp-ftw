@@ -99,9 +99,32 @@
       }
     }
   
+    // Logic to decide start position
+    let startAtUsername = false;
+    const usernameEl = document.querySelector('.username'); // Checks if we are on the main page/hero exists
+    
+    // Check local storage
+    let storedNeko = null;
     if (persistPosition) {
-      let storedNeko = JSON.parse(window.localStorage.getItem("oneko"));
-      if (storedNeko !== null) {
+       storedNeko = JSON.parse(window.localStorage.getItem("oneko"));
+    }
+
+    if (usernameEl) {
+        // ALWAYS start intro on main page (if username element exists)
+        startAtUsername = true;
+        const rect = usernameEl.getBoundingClientRect();
+        
+        // Position specifically relative to the "h0tp-ftw" text
+        // rect.right is the right edge of the username text
+        // rect.bottom is the bottom edge of the username text
+        // Subtract more from Y to move it UP closer to the text baseline
+        nekoPosX = rect.right - 40; 
+        nekoPosY = rect.bottom - 65; 
+        
+        mousePosX = nekoPosX;
+        mousePosY = nekoPosY;
+    } else if (storedNeko) {
+        // Restore from storage if NOT on main page (e.g. niche pages)
         nekoPosX = storedNeko.nekoPosX;
         nekoPosY = storedNeko.nekoPosY;
         mousePosX = storedNeko.mousePosX;
@@ -111,9 +134,8 @@
         idleAnimation = storedNeko.idleAnimation;
         idleAnimationFrame = storedNeko.idleAnimationFrame;
         nekoEl.style.backgroundPosition = storedNeko.bgPos;
-      }
     }
-  
+
     nekoEl.id = "oneko";
     nekoEl.ariaHidden = true;
     nekoEl.style.width = "32px";
@@ -129,10 +151,26 @@
     
     document.body.appendChild(nekoEl);
 
-    document.addEventListener("mousemove", function (event) {
+    // Mouse Listener
+    const mouseHandler = function (event) {
       mousePosX = event.clientX;
       mousePosY = event.clientY;
-    });
+    };
+
+    if (startAtUsername) {
+        // Enforce sleep animation
+        idleAnimation = "sleeping";
+        idleAnimationFrame = 0;
+        
+        // Delay mouse tracking for 3 seconds
+        setTimeout(() => {
+            idleAnimation = null; // Wake up
+            idleAnimationFrame = 0;
+            document.addEventListener("mousemove", mouseHandler);
+        }, 3000);
+    } else {
+        document.addEventListener("mousemove", mouseHandler);
+    }
     
     if (persistPosition) {
       window.addEventListener("beforeunload", function (event) {
@@ -183,10 +221,10 @@
   function idle() {
     idleTime += 1;
 
-    // every ~ 20 seconds
+    // every ~ 4 seconds
     if (
       idleTime > 10 &&
-      Math.floor(Math.random() * 200) == 0 &&
+      Math.floor(Math.random() * 40) == 0 &&
       idleAnimation == null
     ) {
       let avalibleIdleAnimations = ["sleeping", "scratchSelf"];
