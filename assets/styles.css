@@ -375,14 +375,13 @@ body::before {
 }
 
 /* ============================================
-   BLOG NAVIGATION BUTTON
+   TOP NAVIGATION BUTTONS (Blog, Quiet)
    ============================================ */
 
-.blog-nav-btn {
+.blog-nav-btn,
+.quiet-nav-btn {
   position: fixed;
   top: 2rem;
-  right: 7.5rem;
-  left: auto;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -401,7 +400,16 @@ body::before {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.blog-nav-btn:hover {
+.blog-nav-btn {
+  right: 14rem;
+}
+
+.quiet-nav-btn {
+  right: 7.5rem;
+}
+
+.blog-nav-btn:hover,
+.quiet-nav-btn:hover {
   background: var(--ctp-surface1);
   border-color: var(--accent);
   color: var(--accent);
@@ -409,29 +417,41 @@ body::before {
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
 }
 
-.blog-nav-btn svg {
+.blog-nav-btn svg,
+.quiet-nav-btn svg {
   width: 18px;
   height: 18px;
   transition: transform 0.3s ease;
 }
 
-.blog-nav-btn:hover svg {
+.blog-nav-btn:hover svg,
+.quiet-nav-btn:hover svg {
   transform: rotate(-5deg);
 }
 
 @media (max-width: 768px) {
-  .blog-nav-btn {
+  .blog-nav-btn,
+  .quiet-nav-btn {
     top: 1rem;
-    right: 6rem;
     padding: 0.5rem 1rem;
     font-size: 0.85rem;
   }
+
+  .blog-nav-btn {
+    right: 11rem;
+  }
+
+  .quiet-nav-btn {
+    right: 6.5rem;
+  }
   
-  .blog-nav-btn span {
+  .blog-nav-btn span,
+  .quiet-nav-btn span {
     display: none;
   }
   
-  .blog-nav-btn svg {
+  .blog-nav-btn svg,
+  .quiet-nav-btn svg {
     width: 20px;
     height: 20px;
   }

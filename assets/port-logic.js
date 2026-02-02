@@ -430,7 +430,9 @@ async function loadFeaturedProjects() {
             return;
         }
 
-        container.innerHTML = '';
+        // Remove loading state only to preserve static tiles (like Quiet)
+        const loadingState = container.querySelector('.loading-state');
+        if (loadingState) loadingState.remove();
 
         // Helper to render a chunk of repos
         const renderRepos = (repos, startIndex) => {
