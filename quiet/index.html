@@ -4,167 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QUIET | Strategic AI Advisor</title>
-    <style>
-        :root {
-            --bg-color: #050505;
-            --text-color: #d1d1d1;
-            --accent-color: #f0810f; /* MGS V Orange */
-            --terminal-bg: #0a0a0a;
-            --font-mono: 'Courier New', Courier, monospace;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-family: var(--font-mono);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            overflow: hidden;
-            padding: 20px;
-        }
-
-        /* Scanline effect */
-        body::before {
-            content: " ";
-            display: block;
-            position: absolute;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            z-index: 2;
-            background-size: 100% 2px, 3px 100%;
-            pointer-events: none;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 800px;
-            background: var(--terminal-bg);
-            border: 1px solid #333;
-            padding: 30px;
-            position: relative;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
-            z-index: 1;
-        }
-
-        .header {
-            border-bottom: 1px solid #333;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.8rem;
-            color: #666;
-        }
-
-        .title {
-            color: var(--accent-color);
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-bottom: 20px;
-            letter-spacing: 2px;
-        }
-
-        .terminal-text {
-            line-height: 1.6;
-            margin-bottom: 20px;
-            white-space: pre-wrap;
-        }
-
-        .cursor {
-            display: inline-block;
-            width: 10px;
-            height: 18px;
-            background-color: var(--text-color);
-            animation: blink 1s infinite;
-            vertical-align: middle;
-            margin-left: 5px;
-        }
-
-        @keyframes blink {
-            0%, 49% { opacity: 1; }
-            50%, 100% { opacity: 0; }
-        }
-
-        .manifesto {
-            border-left: 2px solid var(--accent-color);
-            padding-left: 20px;
-            margin: 40px 0;
-            font-style: italic;
-        }
-
-        .manifesto p {
-            margin-bottom: 15px;
-        }
-
-        .footer {
-            margin-top: 40px;
-            font-size: 0.7rem;
-            color: #444;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .back-link {
-            color: #666;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .back-link:hover {
-            color: var(--accent-color);
-        }
-
-        /* Easter egg */
-        .butterfly {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            opacity: 0;
-            cursor: pointer;
-            transition: opacity 1s;
-        }
-
-        .container:hover .butterfly {
-            opacity: 0.05;
-        }
-
-        .butterfly:hover {
-            opacity: 1 !important;
-        }
-
-        .interactive-prompt {
-            color: var(--accent-color);
-            margin-top: 20px;
-        }
-
-        #input-line {
-            background: transparent;
-            border: none;
-            color: var(--text-color);
-            font-family: var(--font-mono);
-            font-size: 1rem;
-            width: 80%;
-            outline: none;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="crt-overlay"></div>
+
+    <div id="boot-screen">
+        <div id="boot-log"></div>
+    </div>
+
+    <div class="sound-toggle" id="sound-toggle">[ AUDIO: OFF ]</div>
+
     <div class="container">
         <div class="header">
-            <span>SYS_VERSION: 1.0.4-STABLE</span>
-            <span>DATE: 2026-02-02</span>
+            <span>SYS_VERSION: 1.1.0-QUIET</span>
+            <span id="current-date"></span>
         </div>
 
         <div class="title">QUIET // STRATEGIC_ADVISOR</div>
@@ -190,22 +44,96 @@ Status: ACTIVE.
 Target: OPTIMIZATION.</div>
 
         <div class="interactive-prompt">
-            <span>$</span> <input type="text" id="input-line" placeholder="type 'help' for commands..." autofocus>
+            <span class="prompt-symbol">$</span> <input type="text" id="input-line" placeholder="type 'help' for commands..." autofocus>
         </div>
 
         <div class="footer">
             <a href="/" class="back-link">&lt; RETURN_TO_BASE</a>
             <span>[STREAMS_OF_DATA_ENCRYPTED]</span>
         </div>
-
-        <span class="butterfly" id="egg" title="Quiet?">🦋</span>
     </div>
+
+    <div id="butterfly-container" class="butterfly-container"></div>
+
+    <!-- Audio Elements -->
+    <audio id="hum-sound" loop>
+        <source src="https://www.soundjay.com/mechanical/sounds/computer-fan-1.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="type-sound">
+        <source src="https://www.soundjay.com/communication/sounds/typewriter-key-1.mp3" type="audio/mpeg">
+    </audio>
 
     <script>
         const input = document.getElementById('input-line');
         const content = document.getElementById('terminal-content');
+        const bootScreen = document.getElementById('boot-screen');
+        const bootLog = document.getElementById('boot-log');
+        const dateSpan = document.getElementById('current-date');
+        const soundToggle = document.getElementById('sound-toggle');
+        const humSound = document.getElementById('hum-sound');
+        const typeSound = document.getElementById('type-sound');
+        
+        let soundEnabled = false;
+
+        // Set current date
+        dateSpan.textContent = `DATE: ${new Date().toISOString().split('T')[0]}`;
+
+        // Sound Toggle
+        soundToggle.addEventListener('click', () => {
+            soundEnabled = !soundEnabled;
+            soundToggle.textContent = soundEnabled ? '[ AUDIO: ON ]' : '[ AUDIO: OFF ]';
+            if (soundEnabled) {
+                humSound.play().catch(e => console.log("Audio play prevented"));
+            } else {
+                humSound.pause();
+            }
+        });
+
+        // Play typing sound
+        function playTypeSound() {
+            if (soundEnabled) {
+                typeSound.currentTime = 0;
+                typeSound.play().catch(e => {});
+            }
+        }
+
+        // Boot Sequence
+        const bootMessages = [
+            "BIOS v4.02 checking RAM...",
+            "640KB OK",
+            "Checking HDD0... OK",
+            "Loading Kernel... DONE",
+            "Initializing QUIET protocols...",
+            "Establishing secure uplink...",
+            "Decrypting advisory modules...",
+            "System ready."
+        ];
+
+        async function runBootSequence() {
+            const hasBooted = sessionStorage.getItem('booted');
+            if (hasBooted) return;
+
+            bootScreen.style.display = 'block';
+            for (const msg of bootMessages) {
+                const line = document.createElement('div');
+                line.className = 'boot-text';
+                line.textContent = msg;
+                bootLog.appendChild(line);
+                playTypeSound();
+                await new Promise(r => setTimeout(r, Math.random() * 500 + 200));
+            }
+            await new Promise(r => setTimeout(r, 1000));
+            bootScreen.style.opacity = '0';
+            setTimeout(() => {
+                bootScreen.style.display = 'none';
+                sessionStorage.setItem('booted', 'true');
+            }, 500);
+        }
+
+        runBootSequence();
 
         input.addEventListener('keypress', function(e) {
+            playTypeSound();
             if (e.key === 'Enter') {
                 const cmd = input.value.toLowerCase().trim();
                 handleCommand(cmd);
@@ -216,11 +144,20 @@ Target: OPTIMIZATION.</div>
         function handleCommand(cmd) {
             let response = '';
             if (cmd === 'help') {
-                response = "\nAvailable commands: \n- mission: View current objectives\n- status: System health check\n- clear: Clear terminal\n- whoami: User profile";
+                response = "\nAvailable commands: \n- mission: View current objectives\n- status: System health check\n- skills: Core capabilities\n- projects: Past operations\n- contact: Secure communication\n- butterfly: ???\n- clear: Clear terminal\n- whoami: User profile";
             } else if (cmd === 'mission') {
                 response = "\nMISSION: Provide cold, hard truths to facilitate peak strategic performance.";
             } else if (cmd === 'status') {
                 response = "\nSYSTEM: OPTIMAL\nCOGNITION: SHARP\nADVISORY_LOOP: READY";
+            } else if (cmd === 'skills') {
+                response = "\nSKILLS:\n- STRATEGIC_ANALYSIS: LEVEL_MAX\n- THREAT_MODELING: ADVANCED\n- OPTIMIZATION_LOGIC: SUPERIOR\n- SILENT_OBSERVATION: INNATE";
+            } else if (cmd === 'projects') {
+                response = "\nPROJECTS:\n- OP_PHANTOM: Success\n- OP_STORM_WATCH: Ongoing\n- OP_SILENT_RUN: Classified";
+            } else if (cmd === 'contact') {
+                response = "\nCONTACT: Signal encrypted. Leave a message at the base.";
+            } else if (cmd === 'butterfly') {
+                triggerButterfly();
+                response = "\nObservation: A flicker of beauty in the void.";
             } else if (cmd === 'clear') {
                 content.innerHTML = 'Terminal cleared.';
                 return;
@@ -241,9 +178,18 @@ Target: OPTIMIZATION.</div>
             window.scrollTo(0, document.body.scrollHeight);
         }
 
-        document.getElementById('egg').addEventListener('click', () => {
-            alert("A quiet exit is sometimes the loudest statement.");
-        });
+        function triggerButterfly() {
+            const container = document.getElementById('butterfly-container');
+            container.style.display = 'block';
+            const b = document.createElement('div');
+            b.className = 'butterfly-sprite';
+            b.textContent = '🦋';
+            container.appendChild(b);
+            setTimeout(() => {
+                b.remove();
+                if (container.children.length === 0) container.style.display = 'none';
+            }, 5000);
+        }
     </script>
 </body>
 </html>
