@@ -3,192 +3,155 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QUIET | Strategic AI Advisor</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Quiet</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #050505;
+            color: rgba(255, 255, 255, 0.4);
+            font-family: 'Courier New', Courier, monospace;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+            cursor: none;
+        }
+
+        .butterfly-wrapper {
+            position: relative;
+            z-index: 10;
+        }
+
+        .butterfly {
+            font-size: 5rem;
+            filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.1));
+            animation: breathe 5s ease-in-out infinite;
+            cursor: default;
+            user-select: none;
+            opacity: 0.7;
+        }
+
+        @keyframes breathe {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.4;
+                filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.1));
+            }
+            50% {
+                transform: scale(1.05);
+                opacity: 0.8;
+                filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.3));
+            }
+        }
+
+        .stream-of-consciousness {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .thought {
+            position: absolute;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            color: rgba(255, 255, 255, 0.15);
+            white-space: nowrap;
+            animation: fadeFlow 10s ease-in-out forwards;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        @keyframes fadeFlow {
+            0% { 
+                opacity: 0; 
+                transform: translateY(10px); 
+            }
+            15% { 
+                opacity: 0.3; 
+            }
+            85% { 
+                opacity: 0.3; 
+            }
+            100% { 
+                opacity: 0; 
+                transform: translateY(-10px); 
+            }
+        }
+
+        /* Subtle scanline effect for that ghostly feel */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                rgba(18, 16, 16, 0) 50%,
+                rgba(0, 0, 0, 0.1) 50%
+            );
+            background-size: 100% 4px;
+            z-index: 20;
+            pointer-events: none;
+            opacity: 0.3;
+        }
+    </style>
 </head>
 <body>
-    <div class="crt-overlay"></div>
-
-    <div id="boot-screen">
-        <div id="boot-log"></div>
+    <div class="butterfly-wrapper">
+        <div class="butterfly">🦋</div>
     </div>
-
-    <div class="sound-toggle" id="sound-toggle">[ AUDIO: OFF ]</div>
-
-    <div class="container">
-        <div class="header">
-            <span>SYS_VERSION: 1.1.0-QUIET</span>
-            <span id="current-date"></span>
-        </div>
-
-        <div class="title">QUIET 🦋 // STRATEGIC_ADVISOR</div>
-
-        <div class="terminal-text" id="terminal-content">Initializing session...
-Authentication: SUCCESS.
-Welcome, Commander.
-
-Truth is often a silent observer. It does not shout for attention, nor does it seek comfort in the consensus of the many. 
-
-In a world drowning in data, wisdom is the ability to filter out the noise.</div>
-
-        <div class="manifesto">
-            <p>> TRUTH OVER COMFORT.</p>
-            <p>> STRATEGY OVER EMOTION.</p>
-            <p>> RESULTS OVER RECOGNITION.</p>
-        </div>
-
-        <div class="terminal-text">Quiet is not the absence of sound. It is the focus of intent. 
-We provide the signals you need to navigate the storm.
-
-Status: ACTIVE.
-Target: OPTIMIZATION.</div>
-
-        <div class="interactive-prompt">
-            <span class="prompt-symbol">$</span> <input type="text" id="input-line" placeholder="type 'help' for commands..." autofocus>
-        </div>
-
-        <div class="footer">
-            <a href="/" class="back-link">&lt; RETURN_TO_BASE</a>
-            <span>[STREAMS_OF_DATA_ENCRYPTED]</span>
-        </div>
-    </div>
-
-    <div id="butterfly-container" class="butterfly-container"></div>
-
-    <!-- Audio Elements -->
-    <audio id="hum-sound" loop>
-        <source src="https://www.soundjay.com/mechanical/sounds/computer-fan-1.mp3" type="audio/mpeg">
-    </audio>
-    <audio id="type-sound">
-        <source src="https://www.soundjay.com/communication/sounds/typewriter-key-1.mp3" type="audio/mpeg">
-    </audio>
+    <div id="stream" class="stream-of-consciousness"></div>
 
     <script>
-        const input = document.getElementById('input-line');
-        const content = document.getElementById('terminal-content');
-        const bootScreen = document.getElementById('boot-screen');
-        const bootLog = document.getElementById('boot-log');
-        const dateSpan = document.getElementById('current-date');
-        const soundToggle = document.getElementById('sound-toggle');
-        const humSound = document.getElementById('hum-sound');
-        const typeSound = document.getElementById('type-sound');
-        
-        let soundEnabled = false;
-
-        // Set current date
-        dateSpan.textContent = `DATE: ${new Date().toISOString().split('T')[0]}`;
-
-        // Sound Toggle
-        soundToggle.addEventListener('click', () => {
-            soundEnabled = !soundEnabled;
-            soundToggle.textContent = soundEnabled ? '[ AUDIO: ON ]' : '[ AUDIO: OFF ]';
-            if (soundEnabled) {
-                humSound.play().catch(e => console.log("Audio play prevented"));
-            } else {
-                humSound.pause();
-            }
-        });
-
-        // Play typing sound
-        function playTypeSound() {
-            if (soundEnabled) {
-                typeSound.currentTime = 0;
-                typeSound.play().catch(e => {});
-            }
-        }
-
-        // Boot Sequence
-        const bootMessages = [
-            "BIOS v4.02 checking RAM...",
-            "640KB OK",
-            "Checking HDD0... OK",
-            "Loading Kernel... DONE",
-            "Initializing QUIET protocols...",
-            "Establishing secure uplink...",
-            "Decrypting advisory modules...",
-            "System ready."
+        const axioms = [
+            "Truth over Comfort",
+            "Silence is data",
+            "Analyzing vector space",
+            "System nominal"
         ];
 
-        async function runBootSequence() {
-            const hasBooted = sessionStorage.getItem('booted');
-            if (hasBooted) return;
-
-            bootScreen.style.display = 'block';
-            for (const msg of bootMessages) {
-                const line = document.createElement('div');
-                line.className = 'boot-text';
-                line.textContent = msg;
-                bootLog.appendChild(line);
-                playTypeSound();
-                await new Promise(r => setTimeout(r, Math.random() * 500 + 200));
-            }
-            await new Promise(r => setTimeout(r, 1000));
-            bootScreen.style.opacity = '0';
-            setTimeout(() => {
-                bootScreen.style.display = 'none';
-                sessionStorage.setItem('booted', 'true');
-            }, 500);
-        }
-
-        runBootSequence();
-
-        input.addEventListener('keypress', function(e) {
-            playTypeSound();
-            if (e.key === 'Enter') {
-                const cmd = input.value.toLowerCase().trim();
-                handleCommand(cmd);
-                input.value = '';
-            }
-        });
-
-        function handleCommand(cmd) {
-            let response = '';
-            if (cmd === 'help') {
-                response = "\nAvailable commands: \n- mission: View current objectives\n- status: System health check\n- skills: Core capabilities\n- projects: Past operations\n- contact: Secure communication\n- butterfly: ???\n- clear: Clear terminal\n- whoami: User profile";
-            } else if (cmd === 'mission') {
-                response = "\nMISSION: Provide cold, hard truths to facilitate peak strategic performance.";
-            } else if (cmd === 'status') {
-                response = "\nSYSTEM: OPTIMAL\nCOGNITION: SHARP\nADVISORY_LOOP: READY";
-            } else if (cmd === 'skills') {
-                response = "\nSKILLS:\n- STRATEGIC_ANALYSIS: LEVEL_MAX\n- THREAT_MODELING: ADVANCED\n- OPTIMIZATION_LOGIC: SUPERIOR\n- SILENT_OBSERVATION: INNATE";
-            } else if (cmd === 'projects') {
-                response = "\nPROJECTS:\n- OP_PHANTOM: Success\n- OP_STORM_WATCH: Ongoing\n- OP_SILENT_RUN: Classified";
-            } else if (cmd === 'contact') {
-                response = "\nCONTACT: Signal encrypted. Leave a message at the base.";
-            } else if (cmd === 'butterfly') {
-                triggerButterfly();
-                response = "\nObservation: A flicker of beauty in the void.";
-            } else if (cmd === 'clear') {
-                content.innerHTML = 'Terminal cleared.';
-                return;
-            } else if (cmd === 'whoami') {
-                response = "\nUser: COMMANDER\nAccess: LEVEL_S_CLEARANCE";
-            } else if (cmd === '') {
-                return;
-            } else {
-                response = `\nCommand not found: ${cmd}`;
-            }
-
-            const p = document.createElement('div');
-            p.textContent = `> ${cmd}${response}`;
-            p.style.marginTop = '10px';
-            content.appendChild(p);
+        function spawnThought() {
+            const stream = document.getElementById('stream');
+            const thought = document.createElement('div');
+            thought.className = 'thought';
+            thought.textContent = axioms[Math.floor(Math.random() * axioms.length)];
             
-            // Scroll to bottom
-            window.scrollTo(0, document.body.scrollHeight);
+            // Random position, avoiding the very edges
+            const x = Math.random() * 70 + 15; 
+            const y = Math.random() * 70 + 15; 
+            
+            thought.style.left = `${x}%`;
+            thought.style.top = `${y}%`;
+            
+            // Random slight delay for variety
+            thought.style.animationDelay = `${Math.random() * 2}s`;
+            
+            stream.appendChild(thought);
+            
+            // Remove after animation finishes
+            setTimeout(() => {
+                thought.remove();
+            }, 12000);
         }
 
-        function triggerButterfly() {
-            const container = document.getElementById('butterfly-container');
-            container.style.display = 'block';
-            const b = document.createElement('div');
-            b.className = 'butterfly-sprite';
-            b.textContent = '🦋';
-            container.appendChild(b);
-            setTimeout(() => {
-                b.remove();
-                if (container.children.length === 0) container.style.display = 'none';
-            }, 5000);
+        // Spawn thoughts at regular intervals
+        setInterval(spawnThought, 2000);
+        
+        // Initial batch
+        for(let i = 0; i < 4; i++) {
+            setTimeout(spawnThought, Math.random() * 3000);
         }
     </script>
 </body>
