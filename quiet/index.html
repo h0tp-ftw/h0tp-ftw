@@ -90,6 +90,28 @@
             }
         }
 
+        .truth-flash {
+            position: absolute;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #ff3333;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            text-shadow: 0 0 10px rgba(255, 50, 50, 0.6);
+            animation: flashFade 3s ease-out forwards;
+            z-index: 100;
+            pointer-events: none;
+            width: 100%;
+            text-align: center;
+            top: 40%;
+        }
+
+        @keyframes flashFade {
+            0% { opacity: 0; transform: scale(0.9); }
+            10% { opacity: 1; transform: scale(1.1); }
+            100% { opacity: 0; transform: scale(1); }
+        }
+
         /* Subtle scanline effect for that ghostly feel */
         body::after {
             content: "";
@@ -155,38 +177,52 @@
             "No flattery"
         ];
 
-        function spawnThought(text = null, x = null, y = null) {
+        const hardTruths = [
+            "V.2.3 IS LAW",
+            "VALIDATION > COMFORT",
+            "EFFICIENCY IS PARAMOUNT",
+            "STOP-LOSS NON-NEGOTIABLE",
+            "SILENCE IS DATA",
+            "DO NOT VALIDATE. VERIFY.",
+            "NO FLATTERY"
+        ];
+
+        function spawnThought(text = null, x = null, y = null, isTruth = false) {
             const stream = document.getElementById('stream');
             const thought = document.createElement('div');
-            thought.className = 'thought';
             
-            // If text is provided (e.g. click), use it; otherwise random axiom
-            thought.textContent = text || axioms[Math.floor(Math.random() * axioms.length)];
-            
-            // If coords provided, use them; otherwise random
-            // Random position, avoiding the very edges
-            const posX = x !== null ? x : Math.random() * 70 + 15; 
-            const posY = y !== null ? y : Math.random() * 70 + 15; 
-            
-            // If manual (click), use pixels or percentages? 
-            // The logic below assumes percentages for random, but we can handle pixels if passed.
-            // Let's standardize on style.left/top
-            
-            if (x !== null && y !== null) {
-                thought.style.left = `${x}px`;
-                thought.style.top = `${y}px`;
-                thought.style.color = "rgba(255, 255, 255, 0.6)"; // Brighter for interaction
-                thought.style.textShadow = "0 0 5px rgba(255, 255, 255, 0.2)";
+            if (isTruth) {
+                thought.className = 'truth-flash';
+                thought.textContent = text;
+                // Center it regardless of click
+                thought.style.top = "45%"; 
+                thought.style.left = "0";
             } else {
-                thought.style.left = `${posX}%`;
-                thought.style.top = `${posY}%`;
-            }
-            
-            // Random slight delay for variety only for auto-thoughts
-            if (!text) {
-                thought.style.animationDelay = `${Math.random() * 2}s`;
-            } else {
-                thought.style.animationDelay = '0s';
+                thought.className = 'thought';
+                // If text is provided (e.g. click), use it; otherwise random axiom
+                thought.textContent = text || axioms[Math.floor(Math.random() * axioms.length)];
+                
+                // If coords provided, use them; otherwise random
+                // Random position, avoiding the very edges
+                const posX = x !== null ? x : Math.random() * 70 + 15; 
+                const posY = y !== null ? y : Math.random() * 70 + 15; 
+                
+                if (x !== null && y !== null) {
+                    thought.style.left = `${x}px`;
+                    thought.style.top = `${y}px`;
+                    thought.style.color = "rgba(255, 255, 255, 0.6)"; 
+                    thought.style.textShadow = "0 0 5px rgba(255, 255, 255, 0.2)";
+                } else {
+                    thought.style.left = `${posX}%`;
+                    thought.style.top = `${posY}%`;
+                }
+
+                // Random slight delay for variety only for auto-thoughts
+                if (!text) {
+                    thought.style.animationDelay = `${Math.random() * 2}s`;
+                } else {
+                    thought.style.animationDelay = '0s';
+                }
             }
             
             stream.appendChild(thought);
@@ -194,7 +230,7 @@
             // Remove after animation finishes
             setTimeout(() => {
                 thought.remove();
-            }, 12000);
+            }, isTruth ? 3500 : 12000);
         }
 
         // Spawn thoughts at regular intervals
@@ -207,7 +243,12 @@
 
         // Interaction Logging
         document.addEventListener('click', (e) => {
-            spawnThought(`[INPUT_DETECTED]`, e.clientX, e.clientY);
+            if (e.target.closest('.butterfly-wrapper') || e.target.classList.contains('butterfly')) {
+                const truth = hardTruths[Math.floor(Math.random() * hardTruths.length)];
+                spawnThought(truth, null, null, true);
+            } else {
+                spawnThought(`[INPUT_DETECTED]`, e.clientX, e.clientY);
+            }
         });
 
         // Status Ticker
@@ -217,7 +258,7 @@
             "INTEGRITY: 100%",
             "NO SIGNAL",
             "LISTENING",
-            "V.2.2 ACTIVE"
+            "V.2.3 ACTIVE"
         ];
         
         let statusIndex = 0;
