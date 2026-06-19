@@ -2,8 +2,11 @@ name: Generate profile assets
 
 # Rebuilds the dynamic README art and publishes it to the `output` branch
 # (the README references these via raw.githubusercontent.com):
-#   * the contribution-graph snake (Platane/snk)
 #   * the live swing-trading sparkline (from the website's portfolio CSV)
+#   * the contribution-graph snake (Platane/snk)
+#
+# The sparkline step runs first so the `dist/` dir is owned by the runner; the
+# snake action runs in a root container and writes into it afterwards.
 on:
   schedule:
     - cron: "0 */12 * * *"   # twice a day
@@ -19,6 +22,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Live trading sparkline (Frappé + Latte)
+        run: python3 scripts/build_sparkline_svg.py --out dist
+
       - name: Contribution-graph snake (light + dark)
         uses: Platane/snk@v3
         with:
@@ -26,9 +32,6 @@ jobs:
           outputs: |
             dist/snake.svg
             dist/snake-dark.svg?palette=github-dark
-
-      - name: Live trading sparkline (Frappé + Latte)
-        run: python3 scripts/build_sparkline_svg.py --out dist
 
       - name: Publish to the output branch
         uses: crazy-max/ghaction-github-pages@v4
