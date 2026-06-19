@@ -6,8 +6,8 @@
 [![Discord](https://img.shields.io/badge/Discord-Say_hi-8caaee?style=for-the-badge&logo=discord&logoColor=white&labelColor=303446)](https://discordapp.com/users/445586026451173377)
 
 <picture>
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/h0tp-ftw/h0tp-ftw/main/assets/terminal-latte.svg">
-  <img alt="h0tp@portfolio — FOSS developer, Swing Trader & AI enthusiast" src="https://raw.githubusercontent.com/h0tp-ftw/h0tp-ftw/main/assets/terminal-frappe.svg" width="720">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/h0tp-ftw/h0tp-ftw/main/assets/terminal-latte.svg?v=2">
+  <img alt="h0tp@portfolio — FOSS developer, Swing Trader & AI enthusiast" src="https://raw.githubusercontent.com/h0tp-ftw/h0tp-ftw/main/assets/terminal-frappe.svg?v=2" width="720">
 </picture>
 
 </div>
