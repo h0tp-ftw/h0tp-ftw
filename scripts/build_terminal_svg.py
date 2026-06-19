@@ -126,7 +126,7 @@ def build(theme):
                 (cycle, 0)]
         authored = round(wpx) if i == 0 else 0
         out.append(
-            f'<clipPath id="clipW{i}"><rect x="{word_x - 3:.0f}" '
+            f'<clipPath id="clipW{i}"><rect x="{word_x:.0f}" '
             f'y="{status_y - 23}" width="{authored}" height="28" rx="2">'
             f'{_anim("width", pts, cycle)}</rect></clipPath>'
         )
@@ -157,27 +157,30 @@ def build(theme):
     for s, td, ed, wpx in rows:
         edge += [(s, 0), (s + td, wpx), (s + td + HOLD, wpx), (s + td + HOLD + ed, 0)]
     edge.append((cycle, 0))
-    cur_pts = [(t, word_x + w) for t, w in edge]
+    cur_pts = [(t, word_x + w + 1) for t, w in edge]
     suf_pts = [(t, word_x + w + CUR_GAP) for t, w in edge]
 
     # ---- status line: static prefix, each word (clipped), reflowing suffix, cursor
     out.append(f'<text x="{PAD_X}" y="{status_y}" font-size="{FONT_SIZE}" '
+               f'textLength="{len(STATUS_PREFIX) * CW:.1f}" lengthAdjust="spacingAndGlyphs" '
                f'xml:space="preserve"><tspan fill="{p["yellow"]}">'
                f'{html.escape(STATUS_PREFIX)}</tspan></text>')
     for i, word in enumerate(ROTATING_WORDS):
         out.append(
             f'<g clip-path="url(#clipW{i})"><text x="{word_x:.0f}" y="{status_y}" '
-            f'font-size="{FONT_SIZE}" fill="{p["yellow"]}" xml:space="preserve">'
-            f'{html.escape(word)}</text></g>'
+            f'font-size="{FONT_SIZE}" fill="{p["yellow"]}" '
+            f'textLength="{len(word) * CW:.1f}" lengthAdjust="spacingAndGlyphs" '
+            f'xml:space="preserve">{html.escape(word)}</text></g>'
         )
     out.append(
         f'<text y="{status_y}" font-size="{FONT_SIZE}" fill="{p["text"]}" '
+        f'textLength="{len(STATUS_SUFFIX) * CW:.1f}" lengthAdjust="spacingAndGlyphs" '
         f'x="{word_x + w0 + CUR_GAP:.0f}">{html.escape(STATUS_SUFFIX)}'
         f'{_anim("x", suf_pts, cycle)}</text>'
     )
     out.append(
         f'<text y="{status_y}" font-size="{FONT_SIZE}" fill="{p["text"]}" '
-        f'x="{word_x + w0:.0f}">▌'
+        f'x="{word_x + w0 + 1:.0f}">▌'
         f'<animate attributeName="opacity" values="1;1;0;0" dur="1.06s" '
         f'repeatCount="indefinite"/>{_anim("x", cur_pts, cycle)}</text>'
     )
