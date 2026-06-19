@@ -16,7 +16,16 @@ Access granted. Welcome, explorer. 🐾
 
 **🏆 Achievement unlocked — _Curious Cat_**
 
-Since you're the poking-at-things type, here's the good stuff:
+> [!CAUTION]
+> **Security incident detected.** You just clicked a random link in a stranger's README. No hover, no "wait, where does this even go?", nothing — straight in. 🫠
+>
+> If this were a phishing page you'd already be three fields deep into `g1thub-secure-login·ru`, and that `sudo` prompt up there? Be honest — you'd have typed the password.
+>
+> I literally list **Cybersecurity** as a skill and you just volunteered as my case study. Consider this your free security-awareness training: **stop clicking random links.** Even charming ones. _Especially_ charming ones.
+>
+> _(Lucky for you, I ship side projects — not malware. This time. 😇)_
+
+Anyway — since you're clearly _curious_ (we'll be generous and call it that), here's the good stuff:
 
 - 🎮 **[ankimon](https://github.com/h0tp-ftw/ankimon)** — turn your Anki reviews into a Pokémon game _(my favorite thing I've built)_
 - 🛠️ **[anki-vscode](https://github.com/h0tp-ftw/anki-vscode)** — build & debug Anki add-ons right inside VS Code
