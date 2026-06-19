@@ -170,7 +170,7 @@ def build(theme):
     # ---- status line: static prefix, each word (clipped), reflowing suffix, cursor
     out.append(f'<text x="{PAD_X}" y="{status_y}" font-size="{FONT_SIZE}" '
                f'textLength="{len(STATUS_PREFIX) * CW:.1f}" lengthAdjust="spacingAndGlyphs" '
-               f'xml:space="preserve"><tspan fill="{p["yellow"]}">'
+               f'xml:space="preserve"><tspan fill="{p["text"]}">'
                f'{html.escape(STATUS_PREFIX)}</tspan></text>')
     for i, word in enumerate(ROTATING_WORDS):
         out.append(

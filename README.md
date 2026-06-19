@@ -7,8 +7,8 @@
 
 <a href="https://github.com/h0tp-ftw/h0tp-ftw/blob/main/secret.md" title="hmm?">
 <picture>
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/h0tp-ftw/h0tp-ftw/main/assets/terminal-latte.svg?v=6">
-  <img alt="h0tp@portfolio — FOSS developer, Swing Trader & AI enthusiast" src="https://raw.githubusercontent.com/h0tp-ftw/h0tp-ftw/main/assets/terminal-frappe.svg?v=6" width="720">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/h0tp-ftw/h0tp-ftw/main/assets/terminal-latte.svg?v=7">
+  <img alt="h0tp@portfolio — FOSS developer, Swing Trader & AI enthusiast" src="https://raw.githubusercontent.com/h0tp-ftw/h0tp-ftw/main/assets/terminal-frappe.svg?v=7" width="720">
 </picture>
 </a>
 
