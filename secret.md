@@ -29,6 +29,24 @@ Anyway — since you're clearly _curious_ (we'll be generous and call it that), 
 - 🛠️ **[anki-vscode](https://github.com/h0tp-ftw/anki-vscode)** — build & debug Anki add-ons right inside VS Code
 - 🌐 **[the full portfolio →](https://h0tp-ftw.github.io)** — projects, setup, and yes, the trading numbers
 
+<details>
+<summary>⛔ <b>Do NOT open this one.</b> (you're going to anyway)</summary>
+
+<br>
+
+Predictable. Welcome to the inner sanctum. 🛸
+
+```console
+h0tp@portfolio:~$ ./reward --for-the-truly-persistent
+[■■■■■■■■■■] decrypting the real secret...
+> I'm also just Googling error messages and pushing straight to main. 🫡
+> The trick is to look confident while doing it.
+```
+
+If you scrolled, clicked, **and** expanded this — you're exactly the kind of relentlessly curious that builds great things. [Come say hi →](https://discordapp.com/users/445586026451173377)
+
+</details>
+
 ```console
 h0tp@portfolio:~$ exit
 logout
