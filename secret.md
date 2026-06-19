@@ -43,7 +43,7 @@ h0tp@portfolio:~$ ./reward --for-the-truly-persistent
 > The trick is to look confident while doing it.
 ```
 
-If you scrolled, clicked, **and** expanded this — you're exactly the kind of relentlessly curious that builds great things. [Come say hi →](https://discordapp.com/users/445586026451173377)
+That's **twice** now. Remember that *security-awareness training* from earlier — "stop clicking random links"? Lasted about four seconds. 🫠 But sure: the curiosity that bulldozes every warning sign is *technically* the same kind that builds great things — [come say hi →](https://discordapp.com/users/445586026451173377) and prove it wasn't just bad impulse control.
 
 </details>
 
