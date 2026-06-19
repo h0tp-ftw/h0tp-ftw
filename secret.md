@@ -17,13 +17,11 @@ Access granted. Welcome, explorer. 🐾
 **🏆 Achievement unlocked — _Curious Cat_**
 
 > [!CAUTION]
-> **Security incident detected.** You just clicked a random link in a stranger's README. No hover, no "wait, where does this even go?", nothing — straight in. 🫠
->
-> If this were a phishing page you'd already be three fields deep into `g1thub-secure-login·ru`, and that `sudo` prompt up there? Be honest — you'd have typed the password.
+> You just clicked a random link in a stranger's README. 🫠
 >
 > I literally list **Cybersecurity** as a skill and you just volunteered as my case study. Consider this your free security-awareness training: **stop clicking random links.** Even charming ones. _Especially_ charming ones.
 >
-> _(Lucky for you, I ship side projects — not malware. This time. 😇)_
+> _(Lucky for you, this isn't malware. At least yet. 😇)_
 
 Anyway — since you're clearly _curious_ (we'll be generous and call it that), here's the good stuff:
 
