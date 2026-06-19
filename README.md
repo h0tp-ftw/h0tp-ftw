@@ -2,25 +2,15 @@
 
 # Hi, I'm `h0tp` 👋
 
-### FOSS Developer · Swing Trader · AI Enthusiast
-
 [![Portfolio](https://img.shields.io/badge/Portfolio-h0tp--ftw.github.io-ca9ee6?style=for-the-badge&logo=githubpages&logoColor=white&labelColor=303446)](https://h0tp-ftw.github.io)
 [![Discord](https://img.shields.io/badge/Discord-Say_hi-8caaee?style=for-the-badge&logo=discord&logoColor=white&labelColor=303446)](https://discordapp.com/users/445586026451173377)
 
+<picture>
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/h0tp-ftw/h0tp-ftw/main/assets/terminal-latte.svg">
+  <img alt="h0tp@portfolio — FOSS developer, Swing Trader & AI enthusiast" src="https://raw.githubusercontent.com/h0tp-ftw/h0tp-ftw/main/assets/terminal-frappe.svg" width="720">
+</picture>
+
 </div>
-
----
-
-```console
-h0tp@github:~$ whoami
-FOSS developer, Swing Trader, and AI enthusiast
-
-h0tp@github:~$ cat skills.txt
-Bioinformatics · Game Dev · RL & AI · Cybersecurity
-
-h0tp@github:~$ cat status.txt
-Just another caffeinated FOSS developer ☕
-```
 
 ## 🚀 Featured Projects
 
@@ -33,3 +23,16 @@ Just another caffeinated FOSS developer ☕
 | **[api-key-cycler](https://github.com/h0tp-ftw/api-key-cycler)** | Cycle through API keys & env-var sets in your `.env` on demand | `PowerShell` |
 
 **Daily drivers:** Bluefin Linux · Antigravity · Gemini CLI · Jules &nbsp;—&nbsp; the full collection lives on my **[portfolio site →](https://h0tp-ftw.github.io)**
+
+---
+
+<div align="center">
+
+<sub>🐍 watch the snake eat my commits</sub>
+
+<picture>
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/h0tp-ftw/h0tp-ftw/output/snake.svg">
+  <img alt="My GitHub contribution-graph snake" src="https://raw.githubusercontent.com/h0tp-ftw/h0tp-ftw/output/snake-dark.svg">
+</picture>
+
+</div>
