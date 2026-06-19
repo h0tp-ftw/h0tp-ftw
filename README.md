@@ -24,6 +24,19 @@
 
 **Daily drivers:** Bluefin Linux · Antigravity · Gemini CLI · Jules &nbsp;—&nbsp; the full collection lives on my **[portfolio site →](https://h0tp-ftw.github.io)**
 
+## 📈 Swing Trading
+
+<div align="center">
+
+<picture>
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/h0tp-ftw/h0tp-ftw/output/sparkline-latte.svg">
+  <img alt="Swing strategy — cumulative time-weighted return since Oct 2024" src="https://raw.githubusercontent.com/h0tp-ftw/h0tp-ftw/output/sparkline-frappe.svg" width="470">
+</picture>
+
+<sub>Auto-updated from my portfolio · <a href="https://h0tp-ftw.github.io/#portfolio-performance">full chart →</a> · educational only, not financial advice</sub>
+
+</div>
+
 ---
 
 <div align="center">
