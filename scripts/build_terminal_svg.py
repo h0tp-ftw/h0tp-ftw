@@ -87,8 +87,8 @@ def schedule():
     return rows, t
 
 
-def _anim(attr, pts, cycle):
-    """A looping linear <animate> from (time, value) points (dedups equal times)."""
+def _anim(attr, pts, cycle, mode="linear"):
+    """A looping <animate> from (time, value) points (dedups equal times)."""
     dd = []
     for tt, vv in pts:
         if dd and abs(dd[-1][0] - tt) < 1e-9:
@@ -98,8 +98,16 @@ def _anim(attr, pts, cycle):
     kt = ";".join(f"{min(1.0, tt / cycle):.4f}" for tt, _ in dd)
     vs = ";".join(f"{vv:.1f}" for _, vv in dd)
     return (f'<animate attributeName="{attr}" dur="{cycle:.2f}s" begin="0s" '
-            f'repeatCount="indefinite" calcMode="linear" keyTimes="{kt}" '
+            f'repeatCount="indefinite" calcMode="{mode}" keyTimes="{kt}" '
             f'values="{vs}"/>')
+
+
+def word_steps(s, n):
+    """Discrete per-character (time, revealed-width) points: type out, then erase."""
+    pts = [(s + k * CHAR_TYPE, k * CW) for k in range(n + 1)]          # type 0..n
+    te = s + n * CHAR_TYPE + HOLD
+    pts += [(te + m * CHAR_ERASE, (n - m) * CW) for m in range(n + 1)]  # erase n..0
+    return pts
 
 
 def build(theme):
@@ -119,16 +127,13 @@ def build(theme):
                '<feDropShadow dx="0" dy="6" stdDeviation="10" '
                'flood-color="#000000" flood-opacity="0.22"/></filter>')
     for i, (s, td, ed, wpx) in enumerate(rows):
-        pts = [(0.0, 0)]
-        if s > 0:
-            pts.append((s, 0))
-        pts += [(s + td, wpx), (s + td + HOLD, wpx), (s + td + HOLD + ed, 0),
-                (cycle, 0)]
+        steps = word_steps(s, len(ROTATING_WORDS[i]))
+        pts = ([(0.0, 0)] if s > 0 else []) + steps + [(cycle, 0)]
         authored = round(wpx) if i == 0 else 0
         out.append(
             f'<clipPath id="clipW{i}"><rect x="{word_x:.0f}" '
             f'y="{status_y - 23}" width="{authored}" height="28" rx="2">'
-            f'{_anim("width", pts, cycle)}</rect></clipPath>'
+            f'{_anim("width", pts, cycle, "discrete")}</rect></clipPath>'
         )
     out.append('</defs>')
 
@@ -152,10 +157,12 @@ def build(theme):
             out.append(f'<tspan fill="{p[key]}">{html.escape(text)}</tspan>')
         out.append('</text>')
 
-    # master edge timeline: x of the word's right edge over the whole cycle
+    # master edge timeline: x of the word's right edge, stepping per character
     edge = []
-    for s, td, ed, wpx in rows:
-        edge += [(s, 0), (s + td, wpx), (s + td + HOLD, wpx), (s + td + HOLD + ed, 0)]
+    for i, (s, td, ed, wpx) in enumerate(rows):
+        edge += word_steps(s, len(ROTATING_WORDS[i]))
+    if edge[0][0] > 1e-9:
+        edge = [(0.0, 0)] + edge
     edge.append((cycle, 0))
     cur_pts = [(t, word_x + w + 1) for t, w in edge]
     suf_pts = [(t, word_x + w + CUR_GAP) for t, w in edge]
@@ -176,13 +183,14 @@ def build(theme):
         f'<text y="{status_y}" font-size="{FONT_SIZE}" fill="{p["text"]}" '
         f'textLength="{len(STATUS_SUFFIX) * CW:.1f}" lengthAdjust="spacingAndGlyphs" '
         f'x="{word_x + w0 + CUR_GAP:.0f}">{html.escape(STATUS_SUFFIX)}'
-        f'{_anim("x", suf_pts, cycle)}</text>'
+        f'{_anim("x", suf_pts, cycle, "discrete")}</text>'
     )
     out.append(
         f'<text y="{status_y}" font-size="{FONT_SIZE}" fill="{p["text"]}" '
         f'x="{word_x + w0 + 1:.0f}">▌'
-        f'<animate attributeName="opacity" values="1;1;0;0" dur="1.06s" '
-        f'repeatCount="indefinite"/>{_anim("x", cur_pts, cycle)}</text>'
+        f'<animate attributeName="opacity" values="1;1;0;0" '
+        f'keyTimes="0;0.499;0.5;1" dur="1.06s" repeatCount="indefinite"/>'
+        f'{_anim("x", cur_pts, cycle, "discrete")}</text>'
     )
 
     out.append('</svg>')
