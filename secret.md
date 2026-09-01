@@ -27,7 +27,7 @@ Anyway — since you're clearly _curious_ (we'll be generous and call it that), 
 
 - 🎮 **[ankimon](https://github.com/h0tp-ftw/ankimon)** — turn your Anki reviews into a Pokémon game _(my favorite thing I've built)_
 - 🛠️ **[anki-vscode](https://github.com/h0tp-ftw/anki-vscode)** — build & debug Anki add-ons right inside VS Code
-- 🌐 **[the full portfolio →](https://h0tp-ftw.github.io)** — projects, setup, and yes, the trading numbers
+- 🌐 **[the full portfolio →](https://h0tp-ftw.github.io)** — projects, setup, and code
 
 <details>
 <summary>⛔ <b>Do NOT open this one.</b> (you're going to anyway)</summary>

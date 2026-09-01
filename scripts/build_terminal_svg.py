@@ -59,7 +59,7 @@ def prompt():
 # Intro lines, all shown statically. The status line is rendered separately.
 INTRO_LINES = [
     prompt() + [(" whoami", "text")],
-    [("FOSS developer, Swing Trader & AI enthusiast", "mauve")],
+    [("FOSS developer and AI enthusiast", "mauve")],
     prompt() + [(" cat skills.txt", "text")],
     [("Bioinformatics · Game Dev · RL & AI · Cybersecurity", "text")],
     prompt() + [(" cat status.txt", "text")],

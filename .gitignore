@@ -2,3 +2,6 @@
 # `output` branch (not from main), so the live number can't drift here.
 assets/sparkline-*.svg
 dist/
+.env
+backend/
+cycle_keys.py

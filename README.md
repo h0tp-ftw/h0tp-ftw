@@ -8,7 +8,7 @@
 <a href="https://github.com/h0tp-ftw/h0tp-ftw/blob/main/secret.md" title="hmm?">
 <picture>
   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/h0tp-ftw/h0tp-ftw/main/assets/terminal-latte.svg?v=7">
-  <img alt="h0tp@portfolio — FOSS developer, Swing Trader & AI enthusiast" src="https://raw.githubusercontent.com/h0tp-ftw/h0tp-ftw/main/assets/terminal-frappe.svg?v=7" width="720">
+  <img alt="h0tp@portfolio — FOSS developer and AI enthusiast" src="https://raw.githubusercontent.com/h0tp-ftw/h0tp-ftw/main/assets/terminal-frappe.svg?v=7" width="720">
 </picture>
 </a>
 
@@ -25,19 +25,6 @@
 | **[api-key-cycler](https://github.com/h0tp-ftw/api-key-cycler)** | Cycle through API keys & env-var sets in your `.env` on demand | `PowerShell` |
 
 **Daily drivers:** Bluefin Linux · Antigravity · Gemini CLI · Jules &nbsp;—&nbsp; the full collection lives on my **[portfolio site →](https://h0tp-ftw.github.io)**
-
-## 📈 Swing Trading
-
-<div align="center">
-
-<picture>
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/h0tp-ftw/h0tp-ftw/output/sparkline-latte.svg">
-  <img alt="Swing strategy — cumulative time-weighted return since Oct 2024" src="https://raw.githubusercontent.com/h0tp-ftw/h0tp-ftw/output/sparkline-frappe.svg" width="470">
-</picture>
-
-<sub>Auto-updated from my portfolio · <a href="https://h0tp-ftw.github.io/#portfolio-performance">full chart →</a> · educational only, not financial advice</sub>
-
-</div>
 
 ---
 
