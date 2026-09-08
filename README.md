@@ -18,7 +18,7 @@
 
 | Project | What it does | Stack |
 | --- | --- | --- |
-| **[ankimon](https://github.com/h0tp-ftw/ankimon)** ⭐66 | Gamify your Anki reviews, Pokémon-style — catch, train & battle as you learn | `Python` |
+| **[ankimon](https://github.com/h0tp-ftw/ankimon)** ⭐83 | Gamify your Anki reviews, Pokémon-style — catch, train & battle as you learn | `Python` |
 | **[anki-vscode](https://github.com/h0tp-ftw/anki-vscode)** ⭐13 | One-script setup to build & debug Anki add-ons right inside VS Code | `TypeScript` |
 | **[shucky](https://github.com/h0tp-ftw/shucky)** | Zero-dep `SKILL.md` safety scanner + skill-finder, runnable via `npx` | `JavaScript` |
 | **[acoustic-engine](https://github.com/h0tp-ftw/acoustic-engine)** | Recognize machine & alarm beep patterns with high accuracy | `Python` |
